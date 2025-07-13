@@ -37,7 +37,7 @@ namespace Simple_Hotel_Management_System_OOP
                 }
                 else
                 {
-                    throw new ArgumentException("National ID must be 14 characters long.");
+                    Console.WriteLine("National ID must be 3 characters long.");
                 }
             }
 
