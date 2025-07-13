@@ -72,7 +72,7 @@ namespace Simple_Hotel_Management_System_OOP
             // Default constructor initializes roomNumber to 10 and isBooked to false
             roomCount++;
             this.roomNumber = roomCount; // Assign a unique room number based on the count
-            this.isBooked = false;
+            this.isBooked = true;
             HotelName = "ABC Hotel"; // Default hotel name
         }
 

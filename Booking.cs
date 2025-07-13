@@ -15,10 +15,19 @@ namespace Simple_Hotel_Management_System_OOP
         // A constructor that takes a Room and a Guest
         public Booking(Room room, Guest guest)
         {
-            bookedRoom = room;
-            bookingGuest = guest;
-            BookingTime = DateTime.Now;
-            Console.WriteLine($"Booking created for Room Number: {room.RoomNumber} and Guest National ID: {guest.National_ID}");
+            
+            // Check if the room is already booked
+            if (room.IsBooked)
+            {
+                Console.WriteLine("Room is already booked");
+            }
+            else
+            {
+                bookedRoom = room;
+                bookingGuest = guest;
+                BookingTime = DateTime.Now;
+                Console.WriteLine($"Booking created for Room Number: {room.RoomNumber} and Guest National ID: {guest.National_ID}");
+            }
         }
 
         /*A method ConfirmBooking() that: 
