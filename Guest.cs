@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace Simple_Hotel_Management_System_OOP
         // private fields for Guest properties
         private string name;
         private string national_ID;
+        static string hotelName = "ABC Hotel"; // Static field for hotel name
 
         // Auto-property for name 
         public string Name
@@ -39,16 +41,18 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
         // Add constructor overloads to Guest class to initialize data during object creation.
-        public Guest(string name, string national_ID)
+        public Guest(string name, string national_ID, string hotelName)
         {
             Name = name;
             National_ID = national_ID;
+            Guest.hotelName = hotelName; // Set the static hotel name
         }
         public Guest()
         {
             // Default constructor initializes name and national ID to empty strings
             Name = string.Empty;
             National_ID = string.Empty;
+            hotelName = "ABC Hotel"; // Default hotel name
         }
     }
 }
