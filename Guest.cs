@@ -37,5 +37,18 @@ namespace Simple_Hotel_Management_System_OOP
             }
 
         }
+
+        // Add constructor overloads to Guest class to initialize data during object creation.
+        public Guest(string name, string national_ID)
+        {
+            Name = name;
+            National_ID = national_ID;
+        }
+        public Guest()
+        {
+            // Default constructor initializes name and national ID to empty strings
+            Name = string.Empty;
+            National_ID = string.Empty;
+        }
     }
 }
