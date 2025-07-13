@@ -37,10 +37,18 @@
                     }
                     // ========================== Enter the national ID of guest ==========================
 
-                    Console.Write("Enter guest national ID (3 characters): ");
+                    
                     try
                     {
-                        guest.National_ID = Console.ReadLine();
+                        do
+                        {
+                            Console.Write("Enter guest national ID (3 characters): ");
+                            guest.National_ID = Console.ReadLine();
+                            if (string.IsNullOrWhiteSpace(guest.National_ID) || guest.National_ID.Length != 3)
+                            {
+                                throw new ArgumentException("National ID must be not null and be exactly 3 characters long.");
+                            }
+                        } while (string.IsNullOrWhiteSpace(guest.National_ID) || guest.National_ID.Length != 3); // Ensure national ID is not empty and exactly 3 characters long
                     }
                     catch (ArgumentException ex)
                     {
