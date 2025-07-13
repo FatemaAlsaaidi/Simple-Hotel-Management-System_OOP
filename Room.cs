@@ -21,7 +21,24 @@ namespace Simple_Hotel_Management_System_OOP
         public bool IsBooked
         {
             get { return isBooked; }
+
         }
-        
+        // Create a method called Book() that sets isBooked to true.
+        public void Book()
+        {
+            if (!isBooked)
+            {
+                isBooked = true;
+                Console.WriteLine("Room booked successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Booking failed. Room is already booked.");
+            }
+        }
+
+
+
+
     }
 }
