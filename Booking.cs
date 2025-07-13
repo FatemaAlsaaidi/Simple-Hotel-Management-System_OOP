@@ -8,26 +8,40 @@ namespace Simple_Hotel_Management_System_OOP
 {
     class Booking
     {
+        // Booking Fields
+        private Room bookedRoom;
+        private Guest bookingGuest;
+        private DateTime BookingTime;
         // A constructor that takes a Room and a Guest
-        public Booking(Room roomNumber, Guest GuestNationalID) 
+        public Booking(Room room, Guest guest)
         {
-           Console.WriteLine($"Booking created for Room Number: {roomNumber} and Guest National ID: {GuestNationalID}");
+            bookedRoom = room;
+            bookingGuest = guest;
+            BookingTime = DateTime.Now;
+            Console.WriteLine($"Booking created for Room Number: {room.RoomNumber} and Guest National ID: {guest.National_ID}");
         }
+
         /*A method ConfirmBooking() that: 
         ▪ Checks if the room is booked 
         ▪ If not, books the room and prints guest name and room number 
         */
-        public void ConfirmBooking(Room room, Guest guest)
+
+        public void ConfirmBooking()
         {
-            if (!room.IsBooked)
+            if (!bookedRoom.IsBooked) // 1.Checks if the room is booked
             {
-                room.Book();
-                Console.WriteLine($"Booking confirmed for Guest: {guest.Name} in Room Number: {room.RoomNumber}");
+                // 2.If not, books the room and prints guest name and room number
+                bookedRoom.Book();
+                this.BookingTime = DateTime.Today; //10. Sets the booking time to the current time
+
+                Console.WriteLine("Booking Time is : " + BookingTime);
+                Console.WriteLine("Booking confirmed for " + bookingGuest.Name + " in room " + bookedRoom.RoomNumber);
             }
             else
             {
-                Console.WriteLine("Room is already booked. Cannot confirm booking.");
+                Console.WriteLine("Room " + bookedRoom.RoomNumber + " is already booked");
             }
+
         }
         
     }
