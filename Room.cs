@@ -11,6 +11,7 @@ namespace Simple_Hotel_Management_System_OOP
         private int roomNumber ;
         private bool isBooked;
 
+        static string HotelName;
         // read-only property for RoomNumber
         public int RoomNumber
         {
@@ -53,10 +54,11 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
         // Add constructor overloads to Room class to initialize data during object creation.
-        public Room(int roomNumber, bool isBooked)
+        public Room(int roomNumber, bool isBooked, string hotelName = "ABC Hotel")
         {
             this.roomNumber = roomNumber;
             this.isBooked = isBooked;
+            HotelName = hotelName;
         }
 
         public Room()
@@ -64,6 +66,7 @@ namespace Simple_Hotel_Management_System_OOP
             // Default constructor initializes roomNumber to 10 and isBooked to false
             this.roomNumber = 1;
             this.isBooked = false;
+            HotelName = "ABC Hotel"; // Default hotel name
         }
 
 
