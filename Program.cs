@@ -17,8 +17,26 @@
                 case 1:
                     // create new guest object
                     Guest guest = new Guest();
-                    Console.Write("Enter guest name: ");
-                    guest.Name = Console.ReadLine();
+                    // =================================== Enter the name of guest ========================
+                    try
+                    {
+                        do
+                        {
+                            Console.Write("Enter guest name: ");
+                            guest.Name = Console.ReadLine();
+                            if (string.IsNullOrWhiteSpace(guest.Name))
+                            {
+                                throw new ArgumentException("Guest name must be not null");
+                            }
+                        } while (string.IsNullOrWhiteSpace(guest.Name)); // Ensure name is not empty or whitespace
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return; // Exit if the name is invalid
+                    }
+                    // ========================== Enter the national ID of guest ==========================
+
                     Console.Write("Enter guest national ID (3 characters): ");
                     try
                     {
