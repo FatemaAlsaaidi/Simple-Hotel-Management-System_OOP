@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,13 @@ namespace Simple_Hotel_Management_System_OOP
     {
         private int roomNumber ;
         private bool isBooked;
+        private static int roomCount = 0; // Static variable to keep track of the number of rooms
 
         static string HotelName;
         // read-only property for RoomNumber
+
+       
+
         public int RoomNumber
         {
             get { return roomNumber; }
@@ -54,9 +59,10 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
         // Add constructor overloads to Room class to initialize data during object creation.
-        public Room(int roomNumber, bool isBooked, string hotelName = "ABC Hotel")
+        public Room(bool isBooked, string hotelName = "ABC Hotel")
         {
-            this.roomNumber = roomNumber;
+            roomCount++; // Increment the room count for each new room created
+            this.roomNumber = roomCount; // Assign the provided room number
             this.isBooked = isBooked;
             HotelName = hotelName;
         }
@@ -64,7 +70,8 @@ namespace Simple_Hotel_Management_System_OOP
         public Room()
         {
             // Default constructor initializes roomNumber to 10 and isBooked to false
-            this.roomNumber = 1;
+            roomCount++;
+            this.roomNumber = roomCount; // Assign a unique room number based on the count
             this.isBooked = false;
             HotelName = "ABC Hotel"; // Default hotel name
         }
