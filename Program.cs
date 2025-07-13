@@ -41,7 +41,11 @@
                     break;
                 case 2:
                     Room cancelRoom = new Room();
+                    Console.WriteLine($"Room before booking : {cancelRoom.IsBooked}");
+
                     cancelRoom.Free();
+                    Console.WriteLine($"Room After booking : {cancelRoom.IsBooked}");
+
                     break;
                 case 0:
                     Console.WriteLine("Exiting the system. Thank you!");
