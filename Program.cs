@@ -33,20 +33,23 @@
                     Room room = new Room();
 
                     Console.WriteLine($"Room before booking : {room.IsBooked}");
-                    room.Book();
-                    Console.WriteLine($"Guest {guest.Name} with National ID {guest.National_ID} is ready to book a room.");
+                    Booking booking = new Booking(room, guest); // Create a booking for the room and guest
+                    // Book the room
+                    booking.ConfirmBooking(); // Confirm the booking
+                    //Console.WriteLine($"Guest {guest.Name} with National ID {guest.National_ID} is ready to book a room.");
                     Console.WriteLine($"Room after booking : {room.IsBooked}");
 
 
                     break;
                 case 2:
                     Room cancelRoom = new Room();
-                    Console.WriteLine($"Room before booking : {cancelRoom.IsBooked}");
-
+                    cancelRoom.Book(); // Book the room first
+                    Console.WriteLine($"Room before cancellation: {cancelRoom.IsBooked}");
                     cancelRoom.Free();
-                    Console.WriteLine($"Room After booking : {cancelRoom.IsBooked}");
+                    Console.WriteLine($"Room after cancellation: {cancelRoom.IsBooked}");
 
                     break;
+
                 case 0:
                     Console.WriteLine("Exiting the system. Thank you!");
                     return;
