@@ -18,43 +18,15 @@
                     // create new guest object
                     Guest guest = new Guest();
                     // =================================== Enter the name of guest ========================
-                    try
-                    {
-                        do
-                        {
-                            Console.Write("Enter guest name: ");
-                            guest.Name = Console.ReadLine();
-                            if (string.IsNullOrWhiteSpace(guest.Name))
-                            {
-                                throw new ArgumentException("Guest name must be not null");
-                            }
-                        } while (string.IsNullOrWhiteSpace(guest.Name)); // Ensure name is not empty or whitespace
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        return; // Exit if the name is invalid
-                    }
+                        
+                    Console.Write("Enter guest name: ");
+                    guest.Name = Console.ReadLine();
+                          
                     // ========================== Enter the national ID of guest ==========================
 
-                    
-                    try
-                    {
-                        do
-                        {
-                            Console.Write("Enter guest national ID (3 characters): ");
-                            guest.National_ID = Console.ReadLine();
-                            if (string.IsNullOrWhiteSpace(guest.National_ID) || guest.National_ID.Length != 3)
-                            {
-                                throw new ArgumentException("National ID must be not null and be exactly 3 characters long.");
-                            }
-                        } while (string.IsNullOrWhiteSpace(guest.National_ID) || guest.National_ID.Length != 3); // Ensure national ID is not empty and exactly 3 characters long
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        return; // Exit if the national ID is invalid
-                    }
+                    Console.Write("Enter guest national ID (3 characters): ");
+                    guest.National_ID = Console.ReadLine();
+                           
                     // Display room status
                     Room room = new Room();
 

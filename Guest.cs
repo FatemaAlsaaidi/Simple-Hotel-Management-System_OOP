@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Simple_Hotel_Management_System_OOP
 {
+    // Class: Guest
+    // Purpose: Represents a hotel guest with their personal information.
     class Guest
     {
         // private fields for Guest properties
@@ -21,7 +23,18 @@ namespace Simple_Hotel_Management_System_OOP
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set 
+            {
+                if (!string.IsNullOrWhiteSpace(value) && value.Length >= 3)
+                {
+                    name = value;
+                }
+                else
+                {
+                    Console.WriteLine("Guest name must not be empty and must be at least 3 characters long.");
+                    
+                }
+            }
         }
 
         // Auto-property for national ID
@@ -30,14 +43,15 @@ namespace Simple_Hotel_Management_System_OOP
             get { return national_ID; }
             set 
             {
-                // Validate national ID format 
-                if (value.Length == 3)
+                // Requirement: Guest ID cannot be empty.
+                if (!string.IsNullOrWhiteSpace(value) && value.Length == 3) // You had Length == 3, if it's for validation based on requirement, keep it.
                 {
                     national_ID = value;
                 }
                 else
                 {
-                    Console.WriteLine("National ID must be 3 characters long.");
+                    Console.WriteLine("National ID must not be empty and must be exactly 3 characters long."); // Updated message
+                    // Similar to Name, consider throwing an exception or handling invalid state.
                 }
             }
 
@@ -57,8 +71,8 @@ namespace Simple_Hotel_Management_System_OOP
             guestCount++; // Increment the guest count for each new guest created
             guestNumber = guestCount; // Assign a unique guest number based on the count
             // Default constructor initializes name and national ID to empty strings
-            Name = string.Empty;
-            National_ID = string.Empty;
+            Name = "Unknown";
+            National_ID = "000";
             hotelName = "ABC Hotel"; // Default hotel name
         }
     }
