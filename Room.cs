@@ -78,7 +78,7 @@ namespace Simple_Hotel_Management_System_OOP
             // Default constructor initializes roomNumber to 10 and isBooked to false
             roomCount++;
             roomNumber = roomCount; // Assign a unique room number based on the count
-            isBooked = true;
+            isBooked = false;
             HotelName = "ABC Hotel"; // Default hotel name
         }
 
