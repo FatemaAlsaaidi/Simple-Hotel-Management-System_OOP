@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Simple_Hotel_Management_System_OOP
 {
+    // Class: Room
+    // Purpose: Represents a hotel room with its booking status.
     class Room
     {
         private int roomNumber ;
@@ -16,7 +18,11 @@ namespace Simple_Hotel_Management_System_OOP
         static string HotelName;
         // read-only property for RoomNumber
 
-       
+        // Requirement: Add a static method GetRoomCount() that returns the count. (Missing)
+        public static int GetRoomCount()
+        {
+            return roomCount;
+        }
 
         public int RoomNumber
         {
@@ -62,8 +68,8 @@ namespace Simple_Hotel_Management_System_OOP
         public Room(bool isBooked, string hotelName = "ABC Hotel")
         {
             roomCount++; // Increment the room count for each new room created
-            this.roomNumber = roomCount; // Assign the provided room number
-            this.isBooked = isBooked;
+            roomNumber = roomCount; // Assign the provided room number
+            isBooked = isBooked;
             HotelName = hotelName;
         }
 
@@ -71,8 +77,8 @@ namespace Simple_Hotel_Management_System_OOP
         {
             // Default constructor initializes roomNumber to 10 and isBooked to false
             roomCount++;
-            this.roomNumber = roomCount; // Assign a unique room number based on the count
-            this.isBooked = true;
+            roomNumber = roomCount; // Assign a unique room number based on the count
+            isBooked = false;
             HotelName = "ABC Hotel"; // Default hotel name
         }
 
