@@ -18,7 +18,7 @@ namespace Simple_Hotel_Management_System_OOP
         static string HotelName;
         // read-only property for RoomNumber
 
-        // Requirement: Add a static method GetRoomCount() that returns the count. (Missing)
+        // Add a static method GetRoomCount() that returns the count. (Missing)
         public static int GetRoomCount()
         {
             return roomCount;
@@ -78,11 +78,9 @@ namespace Simple_Hotel_Management_System_OOP
             // Default constructor initializes roomNumber to 10 and isBooked to false
             roomCount++;
             roomNumber = roomCount; // Assign a unique room number based on the count
-            isBooked = false;
+            isBooked = true;
             HotelName = "ABC Hotel"; // Default hotel name
         }
-
-
 
 
 
