@@ -101,7 +101,91 @@ namespace Simple_Hotel_Management_System_OOP
 
         }
 
-        
+        // ============================= Enter User Password ===============================
+        public static string EnterUserPassword()
+        {
+
+            try
+            {
+                string Password = ""; // Initialize name variable
+                do
+                {
+                    Console.Write("Enter your password: ");
+                    Password = ReadPassword();
+
+                    //isValid = 
+
+                    if (!Validation.IsValidPassword(Password))
+                    {
+                        isValid = false; // Set isValid to false if the name is invalid
+                    }
+                    else
+                    {
+                        string enteredHashed = HashPassword(Password);
+                        if (Authentication.ExistPassword(enteredHashed) == true)
+                        {
+                            Console.WriteLine("Password already exists. Please enter a different password.");
+                            isValid = false; // Set isValid to false if the password already exists
+                        }
+                        else
+                        {
+                            isValid = true;
+                        }
+                    }
+                } while (isValid == false); // Ensure name is not null or whitespace
+
+                if (isValid)
+                {
+
+                    return Password;
+                }
+                else
+                {
+                    return "null";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while entering your name: " + ex.Message);
+                return "null"; // Return false if an exception occurs
+            }
+        }
+        // Read password from console without echoing characters
+        static string ReadPassword()
+        {
+            string password = "";
+            ConsoleKeyInfo key;
+
+            do
+            {
+                key = Console.ReadKey(true);
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    password += key.KeyChar;
+                    Console.Write("*");
+                }
+                else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+                {
+                    password = password[0..^1];
+                    Console.Write("\b \b");
+                }
+            } while (key.Key != ConsoleKey.Enter);
+
+            Console.WriteLine();
+            return password;
+        }
+        // Hash the password using SHA256
+        static string HashPassword(string password)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                byte[] bytes = System.Text.Encoding.UTF8.GetBytes(password);
+                byte[] hashBytes = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hashBytes);
+            }
+        }
+
+
 
 
 
