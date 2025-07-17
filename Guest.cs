@@ -11,76 +11,43 @@ namespace Simple_Hotel_Management_System_OOP
     // Purpose: Represents a hotel guest with their personal information.
     class Guest
     {
+        // list if gusts 
+        public static List<Guest> guest = new List<Guest>(); // Static list to hold all guests
+
         // private fields for Guest properties
-        private string name;
-        private string national_ID;
-        private static string hotelName = "ABC Hotel"; // Static field for hotel name
-        private static int guestCount = 0; // Static variable to keep track of the number of guests
-        private static int guestNumber; // Static variable to assign a unique guest number
-        private string password; // Private field for BookingTime
-        public string Password
-        {
-            set { password = value; }
-            // No setter for write-only property
-        }
+        public string Name { get; set; } // Public property for name, using auto-property syntax
+        public string National_ID { get; set; } // Public property for national ID, using auto-property syntax
+        public string PhoneNumber { get; set; } // Not used in the original code, but can be added if needed
+        public string Address { get; set; } // Public property for address, not used in the original code but can be added if needed
+        public static string HotelName = "ABC Hotel"; // Static field for hotel name
+        public static int GuestCount = 1; // Static variable to keep track of the number of guests
+        public static int GuestNumber { get; private set; } // Static variable to assign a unique guest number
+        private string Password; // Private field for password
+        public string HashPassword { get; set; } // Private field for hashed password
 
-        // Auto-property for name 
-        public string Name
+        public string PASSWORD
         {
-            get { return name; }
-            set 
+            set
             {
-                if (!string.IsNullOrWhiteSpace(value) && value.Length >= 3)
-                {
-                    name = value;
-                }
-                else
-                {
-                    Console.WriteLine("Guest name must not be empty and must be at least 3 characters long.");
-                    
-                }
+               if (Password != null)
+                    Password = value;
+                
             }
         }
-
-        // Auto-property for national ID
-        public string National_ID
-        {
-            get { return national_ID; }
-            set 
-            {
-                // Requirement: Guest ID cannot be empty.
-                if (!string.IsNullOrWhiteSpace(value) && value.Length == 3) // You had Length == 3, if it's for validation based on requirement, keep it.
-                {
-                    national_ID = value;
-                }
-                else
-                {
-                    Console.WriteLine("National ID must not be empty and must be exactly 3 characters long."); // Updated message
-                    // Similar to Name, consider throwing an exception or handling invalid state.
-                }
-            }
-
-        }
-
+        
+        
         // Add constructor overloads to Guest class to initialize data during object creation.
-        public Guest(string name, string national_ID, string hotelName, string password)
+        public Guest(string name, string national_ID, string phoneNumber ,string hotelName, string hashPassword, string address)
         {
-            guestCount++; // Increment the guest count for each new guest created
-            guestNumber = guestCount; // Assign a unique guest number based on the count
+            GuestCount++; // Increment the guest count for each new guest created
+            GuestNumber = GuestCount; // Assign a unique guest number based on the count
             Name = name;
-            National_ID = national_ID;
-            Guest.hotelName = hotelName; // Set the static hotel name
-            Password = password;
+            National_ID = National_ID;
+            phoneNumber = phoneNumber; // Assign phone number, if needed
+            HotelName = hotelName; // Set the static hotel name
+            HashPassword = hashPassword;
+            Address = address; // Assign address, if needed
         }
-        public Guest()
-        {
-            guestCount++; // Increment the guest count for each new guest created
-            guestNumber = guestCount; // Assign a unique guest number based on the count
-            // Default constructor initializes name and national ID to empty strings
-            Name = "Unknown";
-            National_ID = "000";
-            hotelName = "ABC Hotel"; // Default hotel name
-            Password = "XXXX";
-        }
+        
     }
 }
