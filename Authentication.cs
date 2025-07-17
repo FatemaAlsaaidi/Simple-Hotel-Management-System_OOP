@@ -27,7 +27,6 @@ namespace Simple_Hotel_Management_System_OOP
 
         }
 
-
         // ============================ Ckeck if Password Exist ============================
         public static bool ExistPassword(string HashPassword)
         {
@@ -42,6 +41,8 @@ namespace Simple_Hotel_Management_System_OOP
             }
             return false; // User password does not exist in the list
         }
+
+
 
     }
 }
