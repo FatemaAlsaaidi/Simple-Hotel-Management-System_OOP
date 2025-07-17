@@ -212,8 +212,33 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
 
+        // =========================== Enter User Address ==============================
+        public static string EnterUserAddress()
+        {
+            Console.Write("Enter your address: ");
+            string address = Console.ReadLine();
+            if (!Validation.IsValidString(address))
+            {
+                Console.WriteLine("Invalid address. Please enter a valid address.");
+                isValid = false;
+            }
+            else
+            {
+                isValid = true; // Set isValid to true if the address is valid
+            }
+            if (isValid)
+            {
+                return address;
+            }
+            else
+            {
+                return "null"; // Return false if the address is invalid
+            }
 
-       
+        }
+
+
+
 
 
 
