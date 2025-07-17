@@ -51,8 +51,60 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
 
-      
+        // =============================== Enter User National ID =============================
+
+        public static string EnterUserNationalID()
+        {
+            try
+            {
+                string NationalID = ""; // Initialize name variable
+                do
+                {
+                    Console.Write("Enter your National ID: ");
+                    NationalID = Console.ReadLine();
+                    //isValid = 
+
+                    if (!Validation.IsValidNationalID(NationalID))
+                    {
+                        // check if the National ID is exist before
+                        if (Authentication.CheckUserIDExist(NationalID) == true)
+                        {
+                            Console.WriteLine("National ID already exists. Please enter a different National ID.");
+                            isValid = false; // Set isValid to false if the name is invalid
+                        }
+                        else
+                        {
+                            isValid = true; // Set isValid to false if the name is invalid
+                        }
+
+                    }
+                    else
+                    {
+                        isValid = true; // Set isValid to true if the name is valid
+                    }
+                } while (isValid == false); // Ensure name is not null or whitespace
+
+                if (isValid)
+                {
+                    return NationalID;
+                }
+                else
+                {
+                    return "null";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred while entering your name: " + ex.Message);
+                return "null"; // Return false if an exception occurs
+            }
+
+        }
 
         
+
+
+
+
     }
 }
