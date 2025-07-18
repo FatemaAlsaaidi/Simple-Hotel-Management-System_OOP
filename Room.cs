@@ -118,7 +118,20 @@ namespace Simple_Hotel_Management_System_OOP
 
         }
 
-       
+        // Remove rooms by admin
+        public static void RemoveRoom(int roomNumber)
+        {
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (rooms[i].RoomNumber == roomNumber)
+                {
+                    rooms.RemoveAt(i); // Remove the room from the list
+                    Console.WriteLine("Room " + roomNumber + " removed successfully.");
+                    return;
+                }
+            }
+            Console.WriteLine("Room " + roomNumber + " not found.");
+        }
 
 
 
