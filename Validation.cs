@@ -25,7 +25,7 @@ namespace Simple_Hotel_Management_System_OOP
         // ===================================== Validates if the input is a valid National id =====================================
         public static bool IsValidNationalID(string nationalID)
         {
-            return string.IsNullOrWhiteSpace(nationalID);
+            return !string.IsNullOrWhiteSpace(nationalID);
         }
 
 
