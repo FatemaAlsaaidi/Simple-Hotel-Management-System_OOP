@@ -96,23 +96,29 @@ namespace Simple_Hotel_Management_System_OOP
         // ===================== Enter User Phone Number ===================
         public static string EnterUserPhoneNumber()
         {
+            string phoneNumber =""; // Initialize phone number variable
             try
             {
 
-
-                Console.Write("Enter your phone number: ");
-
-                string phoneNumber = Console.ReadLine();
-                if (!Validation.IsValidPhoneNumber(phoneNumber))
+                do
                 {
-                    Console.WriteLine("Invalid phone number. Please enter a valid phone number.");
-                    isValid = false;
-                    tries++;
-                }
-                else
-                {
-                    isValid = true; // Set isValid to true if the phone number is valid
-                }
+                    Console.Write("Enter your phone number: ");
+
+                    phoneNumber = Console.ReadLine();
+                    if (!Validation.IsValidPhoneNumber(phoneNumber))
+                    {
+                        Console.WriteLine("Invalid phone number. Please enter a valid phone number.");
+                        isValid = false;
+                        tries++;
+                    }
+                    else
+                    {
+                        isValid = true; // Set isValid to true if the phone number is valid
+                    }
+
+
+                } while (isValid == false && tries >= 3);
+
 
                 if (isValid)
                 {
