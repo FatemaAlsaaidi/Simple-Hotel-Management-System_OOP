@@ -119,7 +119,11 @@ namespace Simple_Hotel_Management_System_OOP
 
                 } while (isValid == false && tries >= 3);
 
-
+                if (tries >= 3)
+                {
+                    Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid phone number.");
+                    return "null"; // Return "null" if the user exceeds the maximum number of attempts
+                }
                 if (isValid)
                 {
                     return phoneNumber;
