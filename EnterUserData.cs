@@ -32,7 +32,7 @@ namespace Simple_Hotel_Management_System_OOP
                     {
                         isValid = true; // Set isValid to true if the name is valid
                     }
-                } while (isValid == false && tries >= 3); // Ensure name is not null or whitespace
+                } while (isValid == false && tries < 3); // Ensure name is not null or whitespace
                 if (tries >= 3)
                 {
                     Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid name.");
@@ -72,7 +72,7 @@ namespace Simple_Hotel_Management_System_OOP
                         isValid = true; // Set isValid to false if the name is invalid
                     }
             
-                } while (isValid == false && tries >= 3); // Ensure name is not null or whitespace
+                } while (isValid == false && tries < 3); // Ensure name is not null or whitespace
                 if (tries >= 3)
                 {
                     Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid National ID.");
@@ -117,7 +117,7 @@ namespace Simple_Hotel_Management_System_OOP
                     }
 
 
-                } while (isValid == false && tries >= 3);
+                } while (isValid == false && tries < 3);
 
                 if (tries >= 3)
                 {
@@ -159,14 +159,14 @@ namespace Simple_Hotel_Management_System_OOP
                         string enteredHashed = HashPassword(Password);             
                         isValid = true;
                     }
-                } while (isValid == false && tries >= 3); // Ensure name is not null or whitespace
+                } while (isValid == false && tries < 3); // Ensure name is not null or whitespace
 
                 if (tries >= 3)
                 {
                     Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid password.");
                     return "null"; // Return "null" if the user exceeds the maximum number of attempts
                 }
-
+                tries = 0; // Reset the number of attempts after entering a valid password
                 return Password;
                
             }
@@ -224,13 +224,20 @@ namespace Simple_Hotel_Management_System_OOP
                     if (!Validation.IsValidString(Address))
                     {
                         isValid = false; // Set isValid to false if the name is invalid
+                        tries++; // Increment the number of attempts
                     }
                     else
                     {
                         isValid = true; // Set isValid to true if the name is valid
                     }
-                } while (isValid == false); // Ensure name is not null or whitespace
-                return isValid ? Address : "null"; // Return name or "null" based on validity
+                } while (isValid == false && tries < 3); // Ensure name is not null or whitespace
+                if (tries >= 3)
+                {
+                    Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid address.");
+                    return "null"; // Return "null" if the user exceeds the maximum number of attempts
+                }
+                tries = 0; // Reset the number of attempts after entering a valid address
+                return Address;
             }
             catch (Exception ex)
             {
