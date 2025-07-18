@@ -8,7 +8,7 @@ namespace Simple_Hotel_Management_System_OOP
         public static bool isLogin = false; // Flag to check if the user is logged in
 
         // admin nation id 
-        public static string AdminNationalID = "123456789"; // Static variable for admin National ID
+        public static string AdminNationalID = "12345"; // Static variable for admin National ID
         public static string AdminPassword = "123"; // Static variable for admin password
         static void Main(string[] args)
         {
@@ -116,8 +116,13 @@ namespace Simple_Hotel_Management_System_OOP
 
         public static void SignIn()
         {
+            // declare variable which save the out put result of functions of get the national id and password 
+            string NationalID = "";
+            string HashPassword = "";
+
             // ============= Enter User National ID ==============
-            string NationalID = EnterUserData.EnterUserNationalID();
+            NationalID = EnterUserData.EnterUserNationalID();
+
 
             // check if NAtional ID value is exist 
             if (NationalID == "null")
@@ -128,7 +133,7 @@ namespace Simple_Hotel_Management_System_OOP
             {
                 if (Authentication.CheckUserIDExist(NationalID) == true)
                 {
-                    string HashPassword = EnterUserData.EnterUserPassword();
+                    HashPassword = EnterUserData.EnterUserPassword();
                     if (HashPassword == "null")
                     {
                         Console.WriteLine("Password dose not be empty");
@@ -151,7 +156,7 @@ namespace Simple_Hotel_Management_System_OOP
                    
                     }
                 }
-                else if(Authentication.CheckAdmin(NationalID, EnterUserData.EnterUserPassword()))
+                else if(Authentication.CheckAdmin(NationalID, HashPassword))
                 {
                     Console.WriteLine("Admin login successful! Welcome to the admin panel.");
                     AdminServicesMenu(); // Call the AdminServicesMenu method to show admin services
