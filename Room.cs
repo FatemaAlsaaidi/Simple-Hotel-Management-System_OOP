@@ -150,6 +150,31 @@ namespace Simple_Hotel_Management_System_OOP
         }
         // =================================== Guest services ====================================
 
+        // Create a method called Book() that sets isBooked to true.
+        public static void BookRoom(int roomnumber)
+        {
+            for (int i = 0; i < roomCount; i++)
+            {
+                if (rooms[i].RoomNumber == roomnumber)
+                {
+                    if (!rooms[i].isBooked)
+                    {
+                        rooms[i].isBooked = true;
+                        Console.WriteLine("Room booked successfully.");
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Booking failed. Room is already booked.");
+                    }
+                }
+            }
+
+        }
+
+       
+
+
 
 
 
