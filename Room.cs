@@ -191,9 +191,32 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
 
+        // Create a method called GetRoomDetails() that returns the room details as a string.
+        public string GetRoomDetails(String RoomNumber)
+        {
+            for (int i = 0; i < roomCount; i++)
+            {
+                if (rooms[i].RoomNumber.ToString() == RoomNumber)
+                {
+                    return $"Room Number: {rooms[i].RoomNumber}, Daily Rate: {rooms[i].DailyRate}, Is Booked: {rooms[i].IsBooked}";
+                }
+
+            }
+
+            if (rooms.Count == 0)
+            {
+                return "No rooms available.";
+            }
+            else
+            {
+                return "Room not found.";
+            }
+        }
+
+       
 
 
-        
+
 
 
 
