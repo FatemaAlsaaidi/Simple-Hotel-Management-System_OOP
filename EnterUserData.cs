@@ -124,15 +124,10 @@ namespace Simple_Hotel_Management_System_OOP
                     Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid phone number.");
                     return "null"; // Return "null" if the user exceeds the maximum number of attempts
                 }
-                if (isValid)
-                {
-                    return phoneNumber;
-                }
-                else
-                {
-                    return "null"; // Return false if the phone number is invalid
-                }
+                tries = 0; // Reset the number of attempts after entering a valid phone number
+                return phoneNumber;
             }
+
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -157,23 +152,23 @@ namespace Simple_Hotel_Management_System_OOP
                     if (!Validation.IsValidPassword(Password))
                     {
                         isValid = false; // Set isValid to false if the name is invalid
+                        tries++; // Increment the number of attempts
                     }
                     else
                     {
                         string enteredHashed = HashPassword(Password);             
                         isValid = true;
                     }
-                } while (isValid == false); // Ensure name is not null or whitespace
+                } while (isValid == false && tries >= 3); // Ensure name is not null or whitespace
 
-                if (isValid)
+                if (tries >= 3)
                 {
+                    Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid password.");
+                    return "null"; // Return "null" if the user exceeds the maximum number of attempts
+                }
 
-                    return Password;
-                }
-                else
-                {
-                    return "null";
-                }
+                return Password;
+               
             }
             catch (Exception ex)
             {
