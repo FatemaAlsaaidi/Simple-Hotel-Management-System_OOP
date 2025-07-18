@@ -17,7 +17,7 @@ namespace Simple_Hotel_Management_System_OOP
             foreach (Guest guest in Guest.guest)
             {
                 // Check if the current guest's National ID matches the provided UserID
-                if (guest.National_ID.Equals(UserID, StringComparison.OrdinalIgnoreCase))
+                if (guest.National_ID == UserID)
                 {
                     return true; // User ID exists in the list
                 }
