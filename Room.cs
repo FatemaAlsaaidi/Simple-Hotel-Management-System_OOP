@@ -89,7 +89,37 @@ namespace Simple_Hotel_Management_System_OOP
         }
         // =============================== Admin services ====================================
         // Add new rooms by admin 
+        public static void AddRoom()
+        {
+            Room newRoom = new Room(); // Create a new room with the specified daily rate
+            rooms.Add(newRoom); // Add the new room to the list of rooms
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (roomCount == rooms[i].RoomNumber)
+                {
+                    Console.WriteLine("Current Daily Rate for Room " + rooms[i].RoomNumber + ": " + rooms[i].DailyRate);
+                    Console.WriteLine("Do you want to change the daily rate? (y/n)");
+                    if (Console.ReadLine().ToLower() == "y")
+                    {
+                        Console.WriteLine("Enter the new daily rate for Room " + rooms[i].RoomNumber + ":");
+                        double newDailyRate;
+                        while (!double.TryParse(Console.ReadLine(), out newDailyRate) || newDailyRate < rooms[i].DailyRate)
+                        {
+                            Console.WriteLine("Invalid input. Please enter a valid daily rate greater than current rate: " + rooms[i].DailyRate);
+                        }
+                        rooms[i].DailyRate = newDailyRate; // Update the daily rate for the room
+                    }
+                    else
+                    {
+                        Console.WriteLine("Daily rate remains unchanged.");
+                    }
+                }
+            }
+
+        }
+
        
+
 
 
 
