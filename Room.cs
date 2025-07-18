@@ -227,7 +227,20 @@ namespace Simple_Hotel_Management_System_OOP
             return availableRooms;
         }
 
-      
+        // Create a method called GetBookedRooms() that returns a list of booked rooms.
+        public static List<Room> ViewAvailableRooms()
+        {
+            List<Room> bookedRooms = new List<Room>();
+            foreach (Room room in rooms)
+            {
+                if (room.IsBooked)
+                {
+                    bookedRooms.Add(room);
+                }
+            }
+            return bookedRooms;
+        }
+
 
 
 
