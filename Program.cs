@@ -1,8 +1,12 @@
-﻿namespace Simple_Hotel_Management_System_OOP
+﻿using System.Data;
+
+namespace Simple_Hotel_Management_System_OOP
 {
     internal class Program
     {
-       
+        // Flag if Login In Seccussfully
+        public static bool isLogin = false; // Flag to check if the user is logged in
+
         static void Main(string[] args)
         {
             while (true)
@@ -25,6 +29,8 @@
 
                         break;
                     case '2':
+                        //PrintData();
+                        Console.ReadLine(); // Wait for user input before continuing
                         SignIn();
                         Console.ReadLine(); // Wait for user input before continuing
                         break;
@@ -127,19 +133,32 @@
                         if (Authentication.ExistPassword(HashPassword) == true)
                         {
                             Console.WriteLine("Successfully Login");
+                            isLogin = true;
+
                         }
                         else
                         {
                             Console.WriteLine("Incorrect password. Please try again.");
+                            isLogin = false; // Set isLogin to false if the password is incorrect
                         }
                     }
                 }
                 else
                 {
                     Console.WriteLine("National ID does not exist. Please sign up first.");
+                    isLogin = false; // Set isLogin to false if the National ID does not exist
                 }
             }
         }
+
+        //public static void PrintData()
+        //{
+        //    // Print all registered guests
+        //    foreach (Guest guest in Guest.guest)
+        //    {
+        //        Console.WriteLine($"Name: {guest.Name}, National ID: {guest.National_ID}, Phone Number: {guest.PhoneNumber}, Address: {guest.Address}");
+        //    }
+        //}
 
     }
 }
