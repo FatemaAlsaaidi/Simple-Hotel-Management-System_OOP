@@ -16,7 +16,7 @@ namespace Simple_Hotel_Management_System_OOP
         private int roomNumber ;
         private bool isBooked;
         public double DailyRate { get; set; } // Public property for room price, using auto-property syntax
-        private static int roomCount = 0; // Static variable to keep track of the number of rooms
+        private static int roomCount = 100; // Static variable to keep track of the number of rooms
 
         // Add a static method GetRoomCount() that returns the count. (Missing)
        
@@ -26,7 +26,7 @@ namespace Simple_Hotel_Management_System_OOP
             get { return roomNumber; }
             set
             {
-                if (value > 0) // Ensure room number is positive
+                if (value > 100) // Ensure room number is positive
                 {
                     roomNumber = value;
                 }
@@ -71,83 +71,24 @@ namespace Simple_Hotel_Management_System_OOP
             isBooked = false;
         }
 
-        // Create a method called Book() that sets isBooked to true.
-        public void BookRoom()
+        // enter the daily rate for the room
+        public static double Daily_Rate(int RoomNumber)
         {
-            if (!isBooked)
-            {
-                isBooked = true;
-                Console.WriteLine("Room booked successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Booking failed. Room is already booked.");
-            }
-        }
-
-        //Create a method called Free() that sets isBooked to false. 
-        public void CancelRoomBooking()
-        {
-            if (isBooked)
-            {
-                isBooked = false;
-                Console.WriteLine("Room Cancel booked successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Canceling failed. Room is already Canceled.");
-            }
-        }
-
-        // Create a method called GetRoomDetails() that returns the room details as a string.
-        public string GetRoomDetails(String RoomNumber)
-        {
+            
             for (int i = 0; i < roomCount; i++)
             {
-                if (rooms[i].RoomNumber.ToString() == RoomNumber)
+                if (rooms[i].RoomNumber == RoomNumber)
                 {
-                    return $"Room Number: {rooms[i].RoomNumber}, Daily Rate: {rooms[i].DailyRate}, Is Booked: {rooms[i].IsBooked}";
-                }
-
-            }
-
-            if (rooms.Count == 0)
-            {
-                return "No rooms available.";
-            }
-            else
-            {
-                return "Room not found.";
-            }
-        }
-
-        // Create a method called GetAvailableRooms() that returns a list of available rooms.
-        public static List<Room> GetAvailableRooms()
-        {
-            List<Room> availableRooms = new List<Room>();
-            foreach (Room room in rooms)
-            {
-                if (!room.IsBooked)
-                {
-                    availableRooms.Add(room);
+                    Console.WriteLine($"Enter the daily rate for room {rooms[i].RoomNumber}:");
+                    double dailyRate = 0.0; // Initialize daily rate variable
+                    dailyRate = rooms[i].DailyRate; // Get the daily rate for the specified room
+                    break;
                 }
             }
-            return availableRooms;
+            return rooms[RoomNumber].DailyRate; // Return the daily rate for the specified room
         }
 
-        // Create a method called GetBookedRooms() that returns a list of booked rooms.
-        public static List<Room> GetBookedRooms()
-        {
-            List<Room> bookedRooms = new List<Room>();
-            foreach (Room room in rooms)
-            {
-                if (room.IsBooked)
-                {
-                    bookedRooms.Add(room);
-                }
-            }
-            return bookedRooms;
-        }
+        
 
 
 
