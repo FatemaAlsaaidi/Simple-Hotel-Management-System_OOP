@@ -45,7 +45,8 @@ namespace Simple_Hotel_Management_System_OOP
                         else
                         {
                             Console.WriteLine("You need to sign in first to access hotel services.");
-                            Console.WriteLine("Press any key to continue...");
+                            Console.WriteLine("Sign In...");
+                            Console.ReadLine(); // Wait for user input before continuing
                             SignIn(); // Call the SignIn method to handle user login
                             if (isLogin)
                             {
@@ -217,50 +218,54 @@ namespace Simple_Hotel_Management_System_OOP
         // =========================== Menue of Hstel Services ===========================
         public static void HotelServicesMenu()
         {
-            Console.Clear(); // Clear the console for a fresh start
-            Console.WriteLine("Welcome to the Hotel Services Menu!");
-            Console.WriteLine("Please choose an option:");
-            Console.WriteLine("1. Book a Room");
-            Console.WriteLine("2. Cancel a Room Booking");
-            Console.WriteLine("3. View Booked Rooms");
-            Console.WriteLine("4. View Available Rooms");
-            Console.WriteLine("0. Exit to Main Menu");
-
-            char choice = Console.ReadKey().KeyChar;
-            Console.ReadKey();
-
-            switch (choice)
+            bool InHotelServicesMenu = true; // Flag to control the hotel services menu loop
+            while (InHotelServicesMenu)
             {
-                case '1':
-                    // Call the method to book a room'
-                    Console.WriteLine("Enter the room number you want to book:");
-                    int roomNumber = int.Parse(Console.ReadLine());
-                    Room.BookRoom(roomNumber);
-                    Console.ReadLine(); // Wait for user input before continuing    
-                    break;
-                case '2':
-                    // Call the method to cancel a room booking
-                    Console.WriteLine("Enter the room number you want to book:");
-                    int roomNumber1= int.Parse(Console.ReadLine());
-                    Room.CancelRoomBooking(roomNumber1);
-                    Console.ReadLine(); // Wait for user input before continuing
-                    break;
-                case '3':
-                    // Call the method to view booked rooms
-                    Room.ViewBookedRooms();
-                    Console.ReadLine(); // Wait for user input before continuing
-                    break;
-                case '4':
-                    // Call the method to view available rooms
-                    Room.ViewAvailableRooms();
-                    Console.ReadLine(); // Wait for user input before continuing
-                    break;
-                case '0':
-                    Console.WriteLine("Exiting to Main Menu.");
-                    return; // Exit to main menu
-                default:
-                    Console.WriteLine("Invalid choice. Please try again.");
-                    break;
+                Console.Clear(); // Clear the console for a fresh start
+                Console.WriteLine("Welcome to the Hotel Services Menu!");
+                Console.WriteLine("Please choose an option:");
+                Console.WriteLine("1. Book a Room");
+                Console.WriteLine("2. Cancel a Room Booking");
+                Console.WriteLine("3. View Booked Rooms");
+                Console.WriteLine("4. View Available Rooms");
+                Console.WriteLine("0. Exit to Main Menu");
+
+                char choice = Console.ReadKey().KeyChar;
+                Console.ReadKey();
+
+                switch (choice)
+                {
+                    case '1':
+                        // Call the method to book a room'
+                        Console.WriteLine("Enter the room number you want to book:");
+                        int roomNumber = int.Parse(Console.ReadLine());
+                        Room.BookRoom(roomNumber);
+                        Console.ReadLine(); // Wait for user input before continuing    
+                        break;
+                    case '2':
+                        // Call the method to cancel a room booking
+                        Console.WriteLine("Enter the room number you want to book:");
+                        int roomNumber1 = int.Parse(Console.ReadLine());
+                        Room.CancelRoomBooking(roomNumber1);
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    case '3':
+                        // Call the method to view booked rooms
+                        Room.ViewBookedRooms();
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    case '4':
+                        // Call the method to view available rooms
+                        Room.ViewAvailableRooms();
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    case '0':
+                        InHotelServicesMenu = false;
+                        break; // Exit to main menu
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
             }
 
 
@@ -269,43 +274,52 @@ namespace Simple_Hotel_Management_System_OOP
         // ========================== Menu of Admin Services ===========================
         public static void AdminServicesMenu()
         {
-            Console.Clear(); // Clear the console for a fresh start
-            Console.WriteLine("Welcome to the Admin Services Menu!");
-            Console.WriteLine("Please choose an option:");
-            Console.WriteLine("1. Add a Room");
-            Console.WriteLine("2. Remove a Room");
-            Console.WriteLine("3. View All Rooms");
-            Console.WriteLine("0. Exit to Main Menu");
-            char choice = Console.ReadKey().KeyChar;
-            Console.WriteLine(); // Move to the next line after reading the key
-            Console.ReadKey();
-            switch (choice)
+            bool InAdminMenu = true;
+            while (InAdminMenu)
             {
-                case '1':
-                    // Call the method to add a room
-                    Room.AddRoom();
-                    Console.ReadLine(); // Wait for user input before continuing
-                    break;
-                case '2':
-                    // Call the method to remove a room
-                    Console.WriteLine("Enter the room number you want to remove:");
-                    int roomNumber = int.Parse(Console.ReadLine());
-                    Room.RemoveRoom(roomNumber);
-                    Console.WriteLine("Room removed successfully.");
-                    Console.ReadLine(); // Wait for user input before continuing
-                    break;
-                case '3':
-                    // Call the method to view all rooms
-                    Room.ViewAllRooms();
-                    Console.ReadLine(); // Wait for user input before continuing
+                Console.Clear(); // Clear the console for a fresh start
+                Console.WriteLine("Welcome to the Admin Services Menu!");
+                Console.WriteLine("Please choose an option:");
+                Console.WriteLine("1. Add a Room");
+                Console.WriteLine("2. Remove a Room");
+                Console.WriteLine("3. View All Rooms");
+                Console.WriteLine("4. View All Cancelled Rooms");
+                Console.WriteLine("0. Exit to Main Menu");
+                char choice = Console.ReadKey().KeyChar;
+                Console.WriteLine(); // Move to the next line after reading the key
+                Console.ReadKey();
+                switch (choice)
+                {
+                    case '1':
+                        // Call the method to add a room
+                        Room.AddRoom();
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    case '2':
+                        // Call the method to remove a room
+                        Console.WriteLine("Enter the room number you want to remove:");
+                        int roomNumber = int.Parse(Console.ReadLine());
+                        Room.RemoveRoom(roomNumber);
+                        Console.WriteLine("Room removed successfully.");
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    case '3':
+                        // Call the method to view all rooms
+                        Room.ViewAllRooms();
+                        Console.ReadLine(); // Wait for user input before continuing
 
-                    break;
-                case '0':
-                    Console.WriteLine("Exiting to Main Menu.");
-                    return; // Exit to main menu
-                default:
-                    Console.WriteLine("Invalid choice. Please try again.");
-                    break;
+                        break;
+                    case '4':
+                        Room.ViewAllCancelRooms();
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    case '0':
+                        InAdminMenu = false;
+                        break; // Exit to main menu
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
             }
         }
 
