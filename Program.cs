@@ -226,7 +226,48 @@ namespace Simple_Hotel_Management_System_OOP
 
         }
 
-       
+        // ========================== Menu of Admin Services ===========================
+        public static void AdminServicesMenu()
+        {
+            Console.Clear(); // Clear the console for a fresh start
+            Console.WriteLine("Welcome to the Admin Services Menu!");
+            Console.WriteLine("Please choose an option:");
+            Console.WriteLine("1. Add a Room");
+            Console.WriteLine("2. Remove a Room");
+            Console.WriteLine("3. View All Rooms");
+            Console.WriteLine("0. Exit to Main Menu");
+            char choice = Console.ReadKey().KeyChar;
+            Console.ReadKey();
+            switch (choice)
+            {
+                case '1':
+                    // Call the method to add a room
+                    Room.AddRoom();
+                    Console.WriteLine("Room added successfully.");
+                    Console.ReadLine(); // Wait for user input before continuing
+                    break;
+                case '2':
+                    // Call the method to remove a room
+                    Console.WriteLine("Enter the room number you want to remove:");
+                    int roomNumber = int.Parse(Console.ReadLine());
+                    Room.RemoveRoom(roomNumber);
+                    Console.WriteLine("Room removed successfully.");
+                    Console.ReadLine(); // Wait for user input before continuing
+                    break;
+                case '3':
+                    // Call the method to view all rooms
+                    Room.ViewAllRooms();
+                    Console.ReadLine(); // Wait for user input before continuing
+
+                    break;
+                case '0':
+                    Console.WriteLine("Exiting to Main Menu.");
+                    return; // Exit to main menu
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
+        }
 
     }
 }
