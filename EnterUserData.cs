@@ -37,9 +37,10 @@ namespace Simple_Hotel_Management_System_OOP
                 if (tries >= 3)
                 {
                     Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid name.");
+                    tries = 0; // Reset the number of attempts after entering a valid password
+                    Console.WriteLine("Please try again later.");
                     return "null"; // Return "null" if the user exceeds the maximum number of attempts
                 }
-                tries = 0; // Reset the number of attempts after entering a valid name
                 return isValid ? name : "null"; // Return name or "null" based on validity
             }
             catch (Exception ex)
@@ -77,9 +78,10 @@ namespace Simple_Hotel_Management_System_OOP
                 if (tries >= 3)
                 {
                     Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid National ID.");
+                    tries = 0; // Reset the number of attempts after entering a valid password
+                    Console.WriteLine("Please try again later.");
                     return "null"; // Return "null" if the user exceeds the maximum number of attempts
                 }
-                tries = 0; // Reset the number of attempts after entering a valid National ID
 
                 return NationalID;
                 
@@ -123,9 +125,10 @@ namespace Simple_Hotel_Management_System_OOP
                 if (tries >= 3)
                 {
                     Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid phone number.");
+                    tries = 0; // Reset the number of attempts after entering a valid password
+                    Console.WriteLine("Please try again later.");
                     return "null"; // Return "null" if the user exceeds the maximum number of attempts
                 }
-                tries = 0; // Reset the number of attempts after entering a valid phone number
                 return phoneNumber;
             }
 
@@ -166,9 +169,11 @@ namespace Simple_Hotel_Management_System_OOP
                 if (tries >= 3)
                 {
                     Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid password.");
+                    tries = 0; // Reset the number of attempts after entering a valid password
+                    Console.WriteLine("Please try again later.");
+                    Console.ReadLine();
                     return "null"; // Return "null" if the user exceeds the maximum number of attempts
                 }
-                tries = 0; // Reset the number of attempts after entering a valid password
                 return Password;
                
             }
@@ -237,9 +242,10 @@ namespace Simple_Hotel_Management_System_OOP
                 if (tries >= 3)
                 {
                     Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid address.");
+                    tries = 0; // Reset the number of attempts after entering a valid password
+                    Console.WriteLine("Please try again later.");
                     return "null"; // Return "null" if the user exceeds the maximum number of attempts
                 }
-                tries = 0; // Reset the number of attempts after entering a valid address
                 return Address;
             }
             catch (Exception ex)
