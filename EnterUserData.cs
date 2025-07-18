@@ -8,8 +8,10 @@ namespace Simple_Hotel_Management_System_OOP
 {
     class EnterUserData
     {
-        // ====================== Enter User Name ======================== 
+        static int tries = 0; // Counter for the number of attempts to enter a valid data
         public static bool isValid = true; // Flag to check if every user input is valid
+
+        // ====================== Enter User Name ======================== 
 
         public static string EnterUserName()
         {
@@ -24,12 +26,19 @@ namespace Simple_Hotel_Management_System_OOP
                     if (!Validation.IsValidString(name))
                     {
                         isValid = false; // Set isValid to false if the name is invalid
+                        tries++; // Increment the number of attempts
                     }
                     else
                     {
                         isValid = true; // Set isValid to true if the name is valid
                     }
-                } while (isValid == false); // Ensure name is not null or whitespace
+                } while (isValid == false && tries >= 3); // Ensure name is not null or whitespace
+                if (tries >= 3)
+                {
+                    Console.WriteLine("You have exceeded the maximum number of attempts to enter a valid name.");
+                    return "null"; // Return "null" if the user exceeds the maximum number of attempts
+                }
+                tries = 0; // Reset the number of attempts after entering a valid name
                 return isValid ? name : "null"; // Return name or "null" based on validity
             }
             catch (Exception ex)
@@ -39,6 +48,7 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
 
+        
         // ===================== Enter User National ID ====================
         public static string EnterUserNationalID()
         {
