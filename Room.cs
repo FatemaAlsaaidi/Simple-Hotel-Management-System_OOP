@@ -134,6 +134,24 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
 
+        // View all rooms by admin
+        public static void ViewAllRooms()
+        {
+            if (rooms.Count == 0)
+            {
+                Console.WriteLine("No rooms available.");
+                return;
+            }
+            Console.WriteLine("List of all rooms:");
+            foreach (Room room in rooms)
+            {
+                Console.WriteLine($"Room Number: {room.RoomNumber}, Daily Rate: {room.DailyRate}, Is Booked: {room.IsBooked}");
+            }
+        }
+
+       
+
+
 
 
 
