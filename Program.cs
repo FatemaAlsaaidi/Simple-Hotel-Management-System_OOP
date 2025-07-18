@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Xml.Linq;
 
 namespace Simple_Hotel_Management_System_OOP
 {
@@ -6,10 +7,8 @@ namespace Simple_Hotel_Management_System_OOP
     {
         // Flag if Login In Seccussfully
         public static bool isLogin = false; // Flag to check if the user is logged in
-
         // admin nation id 
-        public static string AdminNationalID = "12345"; // Static variable for admin National ID
-        public static string AdminPassword = "123"; // Static variable for admin password
+
         static void Main(string[] args)
         {
             while (true)
@@ -27,7 +26,6 @@ namespace Simple_Hotel_Management_System_OOP
                 {
                     case '1':
                         SignUp(); // Call the SignUp method to handle user registration
-                        Console.WriteLine("User data saved successfully.");
                         Console.ReadLine(); // Wait for user input before continuing
 
                         break;
@@ -49,74 +47,83 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
        
-
+       
         public static void SignUp()
         {
             // ============= Enter User Name ==============
             string name = EnterUserData.EnterUserName();
             if (name == "null")
             {
-                Console.WriteLine("Invalid name. Please try again.");
-                return; // Exit if the name is invalid
-            }
-
-            // ============= Enter User National ID ==============
-            string NationalID = EnterUserData.EnterUserNationalID();
-            if (NationalID == "null")
-            {
-                Console.WriteLine("Invalid National ID. Please try again.");
-                return; // Exit if the National ID is invalid
+                return ; // Exit if the name is invalid
             }
             else
             {
-                // Check if the National ID already exists
-                if (Authentication.CheckUserIDExist(NationalID))
+                // ============= Enter User National ID ==============
+                string NationalID = EnterUserData.EnterUserNationalID();
+                if (NationalID == "null")
                 {
-                    Console.WriteLine("National ID already exists. Please enter a different National ID.");
-                    return; // Exit if the National ID already exists
+                    return; // Exit if the National ID is invalid
                 }
-            }
-
-            // ============= Enter User Phone Number ==============
-            string PhoneNumber = EnterUserData.EnterUserPhoneNumber();
-            if (PhoneNumber == "null")
-            {
-                Console.WriteLine("Invalid phone number. Please try again.");
-                return; // Exit if the phone number is invalid
-            }
-
-            // ============= Enter User Password ==============
-            string HashPassword = EnterUserData.EnterUserPassword();
-            if (HashPassword == "null")
-            {
-                Console.WriteLine("Invalid password. Please try again.");
-                return; // Exit if the password is invalid
-            }
-            else
-            {   // Check if the password already exists
-                if (Authentication.ExistPassword(HashPassword))
+                else
                 {
-                    Console.WriteLine("Password already exists. Please enter a different password.");
-                    return; // Exit if the password already exists
+                    // Check if the National ID already exists
+                    if (Authentication.CheckUserIDExist(NationalID))
+                    {
+                        return; // Exit if the National ID already exists
+                    }
+                    else
+                    {
+                        // ============= Enter User Phone Number ==============
+                        string PhoneNumber = EnterUserData.EnterUserPhoneNumber();
+                        if (PhoneNumber == "null")
+                        {
+                            return; // Exit if the phone number is invalid
+                        }
+                        else
+                        {
+                            // ============= Enter User Password ==============
+                            string HashPassword = EnterUserData.EnterUserPassword();
+                            if (HashPassword == "null")
+                            {
+                                return; // Exit if the password is invalid
+                            }
+                            else
+                            {   // Check if the password already exists
+                                if (Authentication.ExistPassword(HashPassword))
+                                {
+                                    return; // Exit if the password already exists
+                                }
+                                else
+                                {
+                                    // ============ Enter User Address ==============
+                                    string Address = EnterUserData.EnterUserAddress();
+                                    if (Address == "null")
+                                    {
+                                        return; // Exit if the address is invalid
+                                    }
+                                    else
+                                    {
+                                        // ============================ Save User Data ============================
+                                        Guest newGuest = new Guest(name, NationalID, PhoneNumber, Guest.HotelName, HashPassword, Address);
+                                        Guest.guest.Add(newGuest); // Add the new guest to the static list of guests
+                                        Console.WriteLine("Registration successful! Welcome to the hotel management system.");
+                                    }
+
+                                }
+                            }
+
+                        }
+
+                    }
                 }
-            }
 
-            // ============ Enter User Address ==============
-            string Address = EnterUserData.EnterUserAddress();
-            if (Address == "null")
-            {
-                Console.WriteLine("Invalid address. Please try again.");
-                return; // Exit if the address is invalid
             }
-
-            // ============================ Save User Data ============================
-            Guest newGuest = new Guest(name, NationalID, PhoneNumber, Guest.HotelName, HashPassword, Address);
-            Guest.guest.Add(newGuest); // Add the new guest to the static list of guests
+               
         }
 
         public static void SignIn()
         {
-            // declare variable which save the out put result of functions of get the national id and password 
+            // declare variable which save the out put result of functions 
             string NationalID = "";
             string HashPassword = "";
 
@@ -156,7 +163,7 @@ namespace Simple_Hotel_Management_System_OOP
                    
                     }
                 }
-                else if(Authentication.CheckAdmin(NationalID, HashPassword))
+                else if (Authentication.CheckAdmin(NationalID, EnterUserData.EnterUserPassword()))
                 {
                     Console.WriteLine("Admin login successful! Welcome to the admin panel.");
                     AdminServicesMenu(); // Call the AdminServicesMenu method to show admin services
