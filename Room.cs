@@ -171,8 +171,31 @@ namespace Simple_Hotel_Management_System_OOP
             }
 
         }
+        //Create a method called Free() that sets isBooked to false. 
+        public static void CancelRoomBooking(int roomnumber)
+        {
+            for (int i = 0; i < roomCount; i++)
+            {
+                if (rooms[i].RoomNumber == roomnumber)
+                {
+                    if (rooms[i].isBooked)
+                    {
+                        rooms[i].isBooked = false;
+                        Console.WriteLine("Room booking canceled successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Canceling failed. Room is already free.");
+                    }
+                }
+            }
+        }
 
-       
+
+
+        
+
+
 
 
 
