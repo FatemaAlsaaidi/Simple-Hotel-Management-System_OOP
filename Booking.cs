@@ -42,30 +42,30 @@ namespace Simple_Hotel_Management_System_OOP
         ▪ If not, books the room and prints guest name and room number 
         */
 
-        public void ConfirmBooking()
-        {
-            if (bookedRoom == null)
-            {
-                Console.WriteLine("Booking could not be confirmed because the room was already booked when the booking was initiated.");
-                return;
-            }
+        //public void ConfirmBooking()
+        //{
+        //    if (bookedRoom == null)
+        //    {
+        //        Console.WriteLine("Booking could not be confirmed because the room was already booked when the booking was initiated.");
+        //        return;
+        //    }
 
-            // 1. Checks if the room is booked
-            if (!bookedRoom.IsBooked)
-            {
-                // 2. If not, books the room and prints guest name and room number
-                bookedRoom.Book();
-                this.bookingTime = DateTime.Now; // 10. Sets the booking time to the current time (use DateTime.Now for current time including time)
+        //    // 1. Checks if the room is booked
+        //    if (!bookedRoom.IsBooked)
+        //    {
+        //        // 2. If not, books the room and prints guest name and room number
+        //        bookedRoom.Book();
+        //        this.bookingTime = DateTime.Now; // 10. Sets the booking time to the current time (use DateTime.Now for current time including time)
 
-                Console.WriteLine("Booking Time is : " + BookingTime);
-                Console.WriteLine("Booking confirmed for " + bookingGuest.Name + " in room " + bookedRoom.RoomNumber);
-            }
-            else
-            {
-                Console.WriteLine("Room " + bookedRoom.RoomNumber + " is already booked. Booking cannot be re-confirmed.");
-            }
+        //        Console.WriteLine("Booking Time is : " + BookingTime);
+        //        Console.WriteLine("Booking confirmed for " + bookingGuest.Name + " in room " + bookedRoom.RoomNumber);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Room " + bookedRoom.RoomNumber + " is already booked. Booking cannot be re-confirmed.");
+        //    }
 
-        }
+        //}
         
     }
 }
