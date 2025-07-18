@@ -19,6 +19,7 @@ namespace Simple_Hotel_Management_System_OOP
                 Console.WriteLine("Please choose an option:");
                 Console.WriteLine("1. Sign Up");
                 Console.WriteLine("2. Sign In");
+                Console.WriteLine("3. Services");
                 Console.WriteLine("0. Exit");
                 char choice = Console.ReadKey().KeyChar;
                 Console.ReadKey();
@@ -32,8 +33,30 @@ namespace Simple_Hotel_Management_System_OOP
                     case '2':
                         //PrintData();
                         SignIn(); // Call the SignIn method to handle user login
+                        Console.ReadLine(); // Wait for user input before continuing  
+                        break;
+
+                    case '3':
+                        if (isLogin)
+                        {
+                            // If the user is logged in, show hotel services menu
+                            HotelServicesMenu();
+                        }
+                        else
+                        {
+                            Console.WriteLine("You need to sign in first to access hotel services.");
+                            Console.WriteLine("Press any key to continue...");
+                            SignIn(); // Call the SignIn method to handle user login
+                            if (isLogin)
+                            {
+                                HotelServicesMenu(); // Show hotel services menu if login is successful
+                            }
+                            else
+                            {
+                                Console.WriteLine("Login failed. Please try again.");
+                            }
+                        }
                         Console.ReadLine(); // Wait for user input before continuing
-                        
                         break;
 
                     case '0':
@@ -150,6 +173,8 @@ namespace Simple_Hotel_Management_System_OOP
                         if (Authentication.ExistPassword(HashPassword) == true)
                         {
                             Console.WriteLine("Login successful! Welcome to the hotel management system.");
+                            isLogin = true; // Set isLogin to true if login is successful
+                            Console.ReadLine(); // Wait for user input before continuing
                             HotelServicesMenu(); // Call the HotelServicesMenu method to show hotel services
                             Console.ReadLine(); // Wait for user input before continuing
 
@@ -159,6 +184,7 @@ namespace Simple_Hotel_Management_System_OOP
                         else
                         {
                             Console.WriteLine("Incorrect password. Please try again.");
+                            isLogin = false; // Set isLogin to false if the password is incorrect
                         }
                    
                     }
@@ -166,6 +192,8 @@ namespace Simple_Hotel_Management_System_OOP
                 else if (Authentication.CheckAdmin(NationalID, EnterUserData.EnterUserPassword()))
                 {
                     Console.WriteLine("Admin login successful! Welcome to the admin panel.");
+                    isLogin = true; // Set isLogin to true for admin login
+                    Console.ReadLine();
                     AdminServicesMenu(); // Call the AdminServicesMenu method to show admin services
                     Console.ReadLine(); // Wait for user input before continuing
                 }
@@ -249,13 +277,13 @@ namespace Simple_Hotel_Management_System_OOP
             Console.WriteLine("3. View All Rooms");
             Console.WriteLine("0. Exit to Main Menu");
             char choice = Console.ReadKey().KeyChar;
+            Console.WriteLine(); // Move to the next line after reading the key
             Console.ReadKey();
             switch (choice)
             {
                 case '1':
                     // Call the method to add a room
                     Room.AddRoom();
-                    Console.WriteLine("Room added successfully.");
                     Console.ReadLine(); // Wait for user input before continuing
                     break;
                 case '2':
