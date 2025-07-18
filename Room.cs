@@ -11,10 +11,14 @@ namespace Simple_Hotel_Management_System_OOP
     // Purpose: Represents a hotel room with its booking status.
     class Room
     {
+
         public static List<Room> rooms = new List<Room>(); // Static list to hold all rooms
+
+
 
         private int roomNumber ;
         private bool isBooked;
+        private bool isCancel;
         public double DailyRate { get; set; } // Public property for room price, using auto-property syntax
         private static int roomCount = 100; // Static variable to keep track of the number of rooms
 
@@ -55,12 +59,13 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
         // Add constructor overloads to Room class to initialize data during object creation.
-        public Room(bool isBooked, double daily_rate)
+        public Room(bool isBooked)
         {
             roomCount++; // Increment the room count for each new room created
             roomNumber = roomCount; // Assign the provided room number
             isBooked = isBooked;
-            DailyRate = daily_rate; // Assign the daily rate for the room
+            DailyRate = 100.0; // Assign the daily rate for the room
+            isCancel = false; // Initialize isCancel to false
         }
 
         public Room()
@@ -69,6 +74,8 @@ namespace Simple_Hotel_Management_System_OOP
             roomCount++;
             roomNumber = roomCount; // Assign a unique room number based on the count
             isBooked = false;
+            DailyRate = 100.0; // Default daily rate for the room
+            isCancel = false; // Initialize isCancel to false
         }
 
         // enter the daily rate for the room
@@ -93,21 +100,24 @@ namespace Simple_Hotel_Management_System_OOP
         {
             Room newRoom = new Room(); // Create a new room with the specified daily rate
             rooms.Add(newRoom); // Add the new room to the list of rooms
+
             for (int i = 0; i < rooms.Count; i++)
             {
                 if (roomCount == rooms[i].RoomNumber)
                 {
                     Console.WriteLine("Current Daily Rate for Room " + rooms[i].RoomNumber + ": " + rooms[i].DailyRate);
-                    Console.WriteLine("Do you want to change the daily rate? (y/n)");
+                    Console.WriteLine("Do you want to more price to current daily rate? (y/n)");
                     if (Console.ReadLine().ToLower() == "y")
                     {
+
                         Console.WriteLine("Enter the new daily rate for Room " + rooms[i].RoomNumber + ":");
                         double newDailyRate;
-                        while (!double.TryParse(Console.ReadLine(), out newDailyRate) || newDailyRate < rooms[i].DailyRate)
+                        while (!double.TryParse(Console.ReadLine(), out newDailyRate))
                         {
                             Console.WriteLine("Invalid input. Please enter a valid daily rate greater than current rate: " + rooms[i].DailyRate);
                         }
-                        rooms[i].DailyRate = newDailyRate; // Update the daily rate for the room
+                        rooms[i].DailyRate += newDailyRate; // Update the daily rate for the room
+                        Console.WriteLine("Room " + rooms[i].RoomNumber + " added successfully with daily rate: " + rooms[i].DailyRate);
                     }
                     else
                     {
@@ -115,7 +125,6 @@ namespace Simple_Hotel_Management_System_OOP
                     }
                 }
             }
-
         }
 
         // Remove rooms by admin
@@ -125,7 +134,7 @@ namespace Simple_Hotel_Management_System_OOP
             {
                 if (rooms[i].RoomNumber == roomNumber)
                 {
-                    rooms.RemoveAt(i); // Remove the room from the list
+                    rooms[i].isCancel = true; // Remove the room from the list
                     Console.WriteLine("Room " + roomNumber + " removed successfully.");
                     return;
                 }
@@ -145,15 +154,40 @@ namespace Simple_Hotel_Management_System_OOP
             Console.WriteLine("List of all rooms:");
             foreach (Room room in rooms)
             {
+                if (room.isCancel)
+                {
+                    continue; // Skip canceled rooms
+                }
                 Console.WriteLine($"Room Number: {room.RoomNumber}, Daily Rate: {room.DailyRate}, Is Booked: {room.IsBooked}");
             }
+        }
+
+        // view all canceled rooms 
+        public static void ViewAllCancelRooms()
+        {
+            if (rooms.Count == 0)
+            {
+                Console.WriteLine("No rooms available.");
+                return;
+            }
+            Console.WriteLine("List of all rooms:");
+            foreach (Room room in rooms)
+            {
+                if (!room.isCancel)
+                {
+                    continue; // Skip canceled rooms
+                }
+                Console.WriteLine("Cancled Romms are: ");
+                Console.WriteLine($"Room Number: {room.RoomNumber}, Daily Rate: {room.DailyRate}, Is Booked: {room.IsBooked}");
+            }
+
         }
         // =================================== Guest services ====================================
 
         // Create a method called Book() that sets isBooked to true.
         public static void BookRoom(int roomnumber)
         {
-            for (int i = 0; i < roomCount; i++)
+            for (int i = 0; i < rooms.Count; i++)
             {
                 if (rooms[i].RoomNumber == roomnumber)
                 {
