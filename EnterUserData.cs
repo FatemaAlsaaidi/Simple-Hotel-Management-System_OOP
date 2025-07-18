@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simple_Hotel_Management_System_OOP
 {
-    class EnterData
+    class EnterUserData
     {
         // ====================== Enter User Name ======================== 
         public static bool isValid = true; // Flag to check if every user input is valid
