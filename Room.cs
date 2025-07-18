@@ -87,8 +87,11 @@ namespace Simple_Hotel_Management_System_OOP
             }
             return rooms[RoomNumber].DailyRate; // Return the daily rate for the specified room
         }
+        // =============================== Admin services ====================================
+        // Add new rooms by admin 
+       
 
-        
+
 
 
 
