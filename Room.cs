@@ -148,8 +148,9 @@ namespace Simple_Hotel_Management_System_OOP
                 Console.WriteLine($"Room Number: {room.RoomNumber}, Daily Rate: {room.DailyRate}, Is Booked: {room.IsBooked}");
             }
         }
+        // =================================== Guest services ====================================
 
-       
+
 
 
 
