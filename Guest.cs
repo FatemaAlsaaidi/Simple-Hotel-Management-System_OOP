@@ -42,8 +42,8 @@ namespace Simple_Hotel_Management_System_OOP
             GuestCount++; // Increment the guest count for each new guest created
             GuestNumber = GuestCount; // Assign a unique guest number based on the count
             Name = name;
-            National_ID = National_ID;
-            phoneNumber = phoneNumber; // Assign phone number, if needed
+            National_ID = national_ID;
+            PhoneNumber = phoneNumber; // Assign phone number, if needed
             HotelName = hotelName; // Set the static hotel name
             HashPassword = hashPassword;
             Address = address; // Assign address, if needed
