@@ -14,21 +14,22 @@
                 Console.WriteLine("1. Sign Up");
                 Console.WriteLine("2. Sign In");
                 Console.WriteLine("0. Exit");
-                int choice = Convert.ToInt32(Console.ReadLine());
-
+                char choice = Console.ReadKey().KeyChar;
+                Console.ReadKey();
                 switch (choice)
                 {
-                    case 1:
-                        SignUp();
+                    case '1':
+                        SignUp(); // Call the SignUp method to handle user registration
+                        Console.WriteLine("User data saved successfully.");
                         Console.ReadLine(); // Wait for user input before continuing
 
                         break;
-                    case 2:
-                        Console.WriteLine("Sign In functionality is not implemented yet.");
+                    case '2':
+                        SignIn();
                         Console.ReadLine(); // Wait for user input before continuing
                         break;
 
-                    case 0:
+                    case '0':
                         Console.WriteLine("Exiting the system. Thank you!");
                         return;
                     default:
@@ -38,106 +39,107 @@
             }
         }
 
+       
+
         public static void SignUp()
         {
-            bool IsSaved = true; // Flag to check if the user is saved successfully
-
-            SignUpForm SignUpForm = new SignUpForm(); // Create an instance of the SignUpForm class
-                                                      // 
-            // ======================== Enter Name ==========================
-            string Name = SignUpForm.EnterUserName(); // Call the method to enter user name
-            if (Name != "null")
+            // ============= Enter User Name ==============
+            string name = EnterData.EnterUserName();
+            if (name == "null")
             {
-                Console.WriteLine("User name entered successfully.");
-                IsSaved = true; // Set IsSaved to true if the name is valid
+                Console.WriteLine("Invalid name. Please try again.");
+                return; // Exit if the name is invalid
+            }
+
+            // ============= Enter User National ID ==============
+            string NationalID = EnterData.EnterUserNationalID();
+            if (NationalID == "null")
+            {
+                Console.WriteLine("Invalid National ID. Please try again.");
+                return; // Exit if the National ID is invalid
             }
             else
             {
-                Console.WriteLine("Failed to enter user name.");
-                IsSaved = false; // Set IsSaved to false if the name is invalid
-                return;
+                // Check if the National ID already exists
+                if (Authentication.CheckUserIDExist(NationalID))
+                {
+                    Console.WriteLine("National ID already exists. Please enter a different National ID.");
+                    return; // Exit if the National ID already exists
+                }
             }
 
-
-            // =================== Enter National ID ======================
-            string NationalID = SignUpForm.EnterUserNationalID(); // Call the method to enter user National ID
-            if (NationalID != "null")
+            // ============= Enter User Phone Number ==============
+            string PhoneNumber = EnterData.EnterUserPhoneNumber();
+            if (PhoneNumber == "null")
             {
-               
-                Console.WriteLine("User National ID entered successfully.");
-                IsSaved = true; // Set IsSaved to true if the National ID is valid
+                Console.WriteLine("Invalid phone number. Please try again.");
+                return; // Exit if the phone number is invalid
+            }
 
-                
+            // ============= Enter User Password ==============
+            string HashPassword = EnterData.EnterUserPassword();
+            if (HashPassword == "null")
+            {
+                Console.WriteLine("Invalid password. Please try again.");
+                return; // Exit if the password is invalid
             }
             else
-            {
-                Console.WriteLine("Failed to enter user National ID.");
-                IsSaved = false; // Set IsSaved to false if the National ID is invalid
-                return;
-
+            {   // Check if the password already exists
+                if (Authentication.ExistPassword(HashPassword))
+                {
+                    Console.WriteLine("Password already exists. Please enter a different password.");
+                    return; // Exit if the password already exists
+                }
             }
 
-            // =================== Enter Phone Number ======================
-            string PhoneNumber = SignUpForm.EnterUserPhoneNumber(); // Call the method to enter user Phone Number
-            if (PhoneNumber != "null")
+            // ============ Enter User Address ==============
+            string Address = EnterData.EnterUserAddress();
+            if (Address == "null")
             {
-                Console.WriteLine("User Phone Number entered successfully.");
-                IsSaved = true; // Set IsSaved to true if the phone number is valid
-            }
-            else
-            {
-                Console.WriteLine("Failed to enter user Phone Number.");
-                IsSaved = false; // Set IsSaved to false if the phone number is invalid
-                return;
+                Console.WriteLine("Invalid address. Please try again.");
+                return; // Exit if the address is invalid
             }
 
-            // =================== Enter Password ======================
-            string HashPassword = SignUpForm.EnterUserPassword(); // Call the method to enter user Password
-            if (HashPassword != "null")
-            {
-                Console.WriteLine("User Password entered successfully.");
-                IsSaved = true; // Set IsSaved to true if the password is valid
-            }
-            else
-            {
-                Console.WriteLine("Failed to enter user Password.");
-                IsSaved = false; // Set IsSaved to false if the password is invalid
-                return;
-
-            }
-
-            // =================== Enter address ====================== 
-            string Address = SignUpForm.EnterUserAddress(); // Call the method to enter user Address
-            if (Address != "null")
-            {
-                Console.WriteLine("User Address entered successfully.");
-                IsSaved = true; // Set IsSaved to true if the address is valid
-            }
-            else
-            {
-                Console.WriteLine("Failed to enter user Address.");
-                IsSaved = false; // Set IsSaved to false if the address is invalid
-                return;
-            }
-
-            // =========================== Save User Data ==============================
-           
-            if (IsSaved)
-            {
-                Guest newGuest = new Guest(Name, NationalID, PhoneNumber, Guest.HotelName, HashPassword, Address);
-                Guest.guest.Add(newGuest); // Add the new guest to the static list of guests
-                Console.WriteLine("User data saved successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Failed to save user data. Please ensure all fields are valid.");
-            }
-              
-
-            
-
+            // ============================ Save User Data ============================
+            Guest newGuest = new Guest(name, NationalID, PhoneNumber, Guest.HotelName, HashPassword, Address);
+            Guest.guest.Add(newGuest); // Add the new guest to the static list of guests
         }
 
+        public static void SignIn()
+        {
+            // ============= Enter User National ID ==============
+            string NationalID = EnterData.EnterUserNationalID();
+
+            // check if NAtional ID value is exist 
+            if (NationalID == "null")
+            {
+                Console.WriteLine("Nation ID can not be empty");
+            } else {
+                if (Authentication.CheckUserIDExist(NationalID) == true)
+                {
+                    string HashPassword = EnterData.EnterUserPassword();
+                    if (HashPassword == "null")
+                    {
+                        Console.WriteLine("Password dose not be empty");
+                    }
+                    else
+                    {
+                        if (Authentication.ExistPassword(HashPassword) == true)
+                        {
+                            Console.WriteLine("Successfully Login");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Incorrect password. Please try again.");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("National ID does not exist. Please sign up first.");
+                }
+            }
+        }
 
     }
 }
