@@ -25,6 +25,7 @@ namespace Simple_Hotel_Management_System_OOP
                     name = Console.ReadLine();
                     if (!Validation.IsValidString(name))
                     {
+                        Console.WriteLine("Invalid name. Please enter a valid name.");
                         isValid = false; // Set isValid to false if the name is invalid
                         tries++; // Increment the number of attempts
                     }
@@ -63,7 +64,7 @@ namespace Simple_Hotel_Management_System_OOP
 
                     if (!Validation.IsValidNationalID(NationalID))
                     {
-       
+                        Console.WriteLine("Invalid National ID. Please enter a valid National ID.");
                         isValid = false; // Set isValid to false if the name is invalid
                         tries++; // Increment the number of attempts
                     }
@@ -151,6 +152,7 @@ namespace Simple_Hotel_Management_System_OOP
 
                     if (!Validation.IsValidPassword(Password))
                     {
+                        Console.WriteLine("Invalid password. Please enter a valid password (at least 3 characters long).");
                         isValid = false; // Set isValid to false if the name is invalid
                         tries++; // Increment the number of attempts
                     }
@@ -223,6 +225,7 @@ namespace Simple_Hotel_Management_System_OOP
                     Address = Console.ReadLine();
                     if (!Validation.IsValidString(Address))
                     {
+                        Console.WriteLine("Invalid address. Please enter a valid address.");
                         isValid = false; // Set isValid to false if the name is invalid
                         tries++; // Increment the number of attempts
                     }
