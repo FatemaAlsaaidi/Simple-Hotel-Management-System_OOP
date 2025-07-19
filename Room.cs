@@ -19,9 +19,10 @@ namespace Simple_Hotel_Management_System_OOP
         private bool isCancel;
         public double DailyRate { get; set; } // Public property for room price, using auto-property syntax
         private static int roomCount = 100; // Static variable to keep track of the number of rooms
+        public string roomType { get; set; } // Static field for room type, can be changed if needed
 
         // Add a static method GetRoomCount() that returns the count. (Missing)
-       
+
 
         public int RoomNumber
         {
@@ -81,6 +82,8 @@ namespace Simple_Hotel_Management_System_OOP
             isBooked = false;
             DailyRate = 100.0; // Default daily rate for the room
             isCancel = false; // Initialize isCancel to false
+            roomType = "Standard"; // Default room type
+
         }
 
         // enter the daily rate for the room
@@ -122,12 +125,52 @@ namespace Simple_Hotel_Management_System_OOP
                             Console.WriteLine("Invalid input. Please enter a valid daily rate greater than current rate: " + rooms[i].DailyRate);
                         }
                         rooms[i].DailyRate += newDailyRate; // Update the daily rate for the room
+
                         Console.WriteLine("Room " + rooms[i].RoomNumber + " added successfully with daily rate: " + rooms[i].DailyRate);
                     }
                     else
                     {
                         Console.WriteLine("Daily rate remains unchanged.");
                     }
+                    Console.WriteLine("=======================================================");
+                    Console.WriteLine("Do you want to add a room type? (y/n)");
+                    if (Console.ReadLine().ToLower() == "y")
+                    {
+                        do
+                        {
+                            Console.WriteLine("Select the room type for new room " + rooms[i].RoomNumber + ":");
+                            Console.WriteLine("1. Standard Room");
+                            Console.WriteLine("2. Deluxe Room");
+                            Console.WriteLine("3. Suite Room");
+                            int roomTypeChoice;
+                            while (!int.TryParse(Console.ReadLine(), out roomTypeChoice) || roomTypeChoice < 1 || roomTypeChoice > 3)
+                            {
+                                Console.WriteLine("Invalid input. Please select a valid room type (1-3):");
+                            }
+                            switch (roomTypeChoice)
+                            {
+                                case 1:
+                                    rooms[i].roomType = "Standard Room";
+                                    break;
+                                case 2:
+                                    rooms[i].roomType = "Deluxe Room";
+                                    break;
+                                case 3:
+                                    rooms[i].roomType = "Suite Room";
+                                    break;
+                                default:
+                                    Console.WriteLine("Invalid room type selected.");
+                                    break;
+                            }
+                        } while (rooms[i].roomType == null && Console.ReadLine().ToLower() == "y"); // Ensure room type is selected
+
+                    }
+                    else
+                    {
+                        rooms[i].roomType = "Standard Room"; // Default room type if not specified
+                    }
+                    
+
                 }
             }
         }
