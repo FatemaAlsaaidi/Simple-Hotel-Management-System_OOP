@@ -257,6 +257,13 @@ namespace Simple_Hotel_Management_System_OOP
                 switch (choice)
                 {
                     case '1':
+                        // check if there are rooms available for booking
+                        if (Room.rooms.Count(r => !r.IsBooked && !r.IsCancel) == 0)
+                        {
+                            Console.WriteLine("No rooms available for booking at the moment.");
+                            Console.ReadLine(); // Wait for user input before continuing
+                            break;
+                        }
                         Console.WriteLine("Enter the room number you want to book:");
                         if (int.TryParse(Console.ReadLine(), out int roomNumber))
                         {
@@ -293,6 +300,7 @@ namespace Simple_Hotel_Management_System_OOP
                         break;
 
                     case '2':
+  
                         // Call the method to cancel a room booking
                         Console.WriteLine("Enter the room number you want to book:");
                         int roomNumber1 = int.Parse(Console.ReadLine());
