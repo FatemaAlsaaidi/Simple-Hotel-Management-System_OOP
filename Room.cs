@@ -341,9 +341,10 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
 
-        // Create a method called GetAvailableRooms() that returns a list of available rooms.
+        // Create a method called GetAvailableRooms() that returns a list of available rooms. this can through admin 
         public static List<Room> ViewBookedRooms()
         {
+
             List<Room> availableRooms = new List<Room>();
             foreach (Room room in rooms)
             {
