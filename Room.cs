@@ -85,6 +85,15 @@ namespace Simple_Hotel_Management_System_OOP
             roomType = "Standard"; // Default room type
 
         }
+        // Overloaded constructor to initialize room with specific values  // used it when load data from file 
+        public Room(int roomNumber, string roomType, double dailyRate, bool isBooked) 
+        {
+            this.roomNumber = roomNumber; // Assign the room number
+            this.roomType = roomType; // Assign the room type
+            this.DailyRate = dailyRate; // Assign the daily rate
+            this.isBooked = isBooked; // Set the booking status
+            this.isCancel = false; // Initialize isCancel to false
+        }
 
         // enter the daily rate for the room
         public static double Daily_Rate(int RoomNumber)
