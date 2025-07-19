@@ -1,13 +1,13 @@
 ﻿using System.Data;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace Simple_Hotel_Management_System_OOP
 {
     internal class Program
     {
-        // Flag if Login In Seccussfully
-        public static bool isLogin = false; // Flag to check if the user is logged in
-        // admin nation id 
+        static Guest currentGuest = null;
+
 
         static void Main(string[] args)
         {
@@ -37,7 +37,7 @@ namespace Simple_Hotel_Management_System_OOP
                         break;
 
                     case '3':
-                        if (isLogin)
+                        if (currentGuest.IsLogin)
                         {
                             // If the user is logged in, show hotel services menu
                             HotelServicesMenu();
@@ -48,7 +48,7 @@ namespace Simple_Hotel_Management_System_OOP
                             Console.WriteLine("Sign In...");
                             Console.ReadLine(); // Wait for user input before continuing
                             SignIn(); // Call the SignIn method to handle user login
-                            if (isLogin)
+                            if (currentGuest.IsLogin)
                             {
                                 HotelServicesMenu(); // Show hotel services menu if login is successful
                             }
@@ -130,6 +130,7 @@ namespace Simple_Hotel_Management_System_OOP
                                         // ============================ Save User Data ============================
                                         Guest newGuest = new Guest(name, NationalID, PhoneNumber, Guest.HotelName, HashPassword, Address);
                                         Guest.guest.Add(newGuest); // Add the new guest to the static list of guests
+                                        currentGuest = newGuest;
                                         Console.WriteLine("Registration successful! Welcome to the hotel management system.");
                                     }
 
@@ -144,6 +145,21 @@ namespace Simple_Hotel_Management_System_OOP
             }
                
         }
+
+        // Flag to check if the user is logged in function 
+        public static bool IsLogin (string NationalID, string  HashPassword, bool isLogin){
+            Guest currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID && g.HashPassword == HashPassword);
+            if (currentGuest != null)
+            {
+                currentGuest.IsLogin = isLogin; // Set IsLogin to true for the current guest
+
+            }
+
+            return currentGuest != null && currentGuest.IsLogin; // Return true if the guest is logged in, false otherwise
+        }
+
+        
+
 
         public static void SignIn()
         {
@@ -174,7 +190,8 @@ namespace Simple_Hotel_Management_System_OOP
                         if (Authentication.ExistPassword(HashPassword) == true)
                         {
                             Console.WriteLine("Login successful! Welcome to the hotel management system.");
-                            isLogin = true; // Set isLogin to true if login is successful
+                            IsLogin(NationalID, HashPassword , true);
+                            currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID && g.HashPassword == HashPassword); // Get the current guest based on National ID and password
                             Console.ReadLine(); // Wait for user input before continuing
                             HotelServicesMenu(); // Call the HotelServicesMenu method to show hotel services
                             Console.ReadLine(); // Wait for user input before continuing
@@ -185,7 +202,8 @@ namespace Simple_Hotel_Management_System_OOP
                         else
                         {
                             Console.WriteLine("Incorrect password. Please try again.");
-                            isLogin = false; // Set isLogin to false if the password is incorrect
+                            Guest currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID);
+                            IsLogin(NationalID, HashPassword, false);
                         }
                    
                     }
@@ -193,7 +211,8 @@ namespace Simple_Hotel_Management_System_OOP
                 else if (Authentication.CheckAdmin(NationalID, EnterUserData.EnterUserPassword()))
                 {
                     Console.WriteLine("Admin login successful! Welcome to the admin panel.");
-                    isLogin = true; // Set isLogin to true for admin login
+                    Guest currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID);
+                    IsLogin(NationalID, HashPassword, true);
                     Console.ReadLine();
                     AdminServicesMenu(); // Call the AdminServicesMenu method to show admin services
                     Console.ReadLine(); // Wait for user input before continuing
@@ -201,7 +220,9 @@ namespace Simple_Hotel_Management_System_OOP
                 else
                 {
                     Console.WriteLine("National ID does not exist. Please sign up first.");
-                    isLogin = false; // Set isLogin to false if the National ID does not exist
+                    Console.ReadLine(); // Wait for user input before continuing
+                    SignUp(); // Call the SignUp method to handle user registration
+
                 }
             }
         }
@@ -236,12 +257,41 @@ namespace Simple_Hotel_Management_System_OOP
                 switch (choice)
                 {
                     case '1':
-                        // Call the method to book a room'
                         Console.WriteLine("Enter the room number you want to book:");
-                        int roomNumber = int.Parse(Console.ReadLine());
-                        Room.BookRoom(roomNumber);
-                        Console.ReadLine(); // Wait for user input before continuing    
+                        if (int.TryParse(Console.ReadLine(), out int roomNumber))
+                        {
+                            Room roomToBook = Room.rooms.FirstOrDefault(r => r.RoomNumber == roomNumber && !r.IsBooked && !r.IsCancel);
+                            if (roomToBook != null)
+                            {
+                                Console.WriteLine("Enter the number of nights you wish to book:");
+                                if (int.TryParse(Console.ReadLine(), out int nights) && nights > 0)
+                                {
+                                    if (currentGuest != null)
+                                    {
+                                        Booking newBooking = new Booking(roomToBook, currentGuest, nights);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Error: No guest is currently logged in.");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Invalid number of nights.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Room not available for booking.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid room number.");
+                        }
+                        Console.ReadLine();
                         break;
+
                     case '2':
                         // Call the method to cancel a room booking
                         Console.WriteLine("Enter the room number you want to book:");
@@ -296,6 +346,7 @@ namespace Simple_Hotel_Management_System_OOP
                         Console.ReadLine(); // Wait for user input before continuing
                         break;
                     case '2':
+
                         // Call the method to remove a room
                         Console.WriteLine("Enter the room number you want to remove:");
                         int roomNumber = int.Parse(Console.ReadLine());
