@@ -13,9 +13,7 @@ namespace Simple_Hotel_Management_System_OOP
     {
 
         public static List<Room> rooms = new List<Room>(); // Static list to hold all rooms
-
-
-
+        // private fields for Room properties
         private int roomNumber ;
         private bool isBooked;
         private bool isCancel;
@@ -58,14 +56,21 @@ namespace Simple_Hotel_Management_System_OOP
                 }
             }
         }
-        // Add constructor overloads to Room class to initialize data during object creation.
-        public Room(bool isBooked)
+
+        public bool IsCancel
         {
-            roomCount++; // Increment the room count for each new room created
-            roomNumber = roomCount; // Assign the provided room number
-            isBooked = isBooked;
-            DailyRate = 100.0; // Assign the daily rate for the room
-            isCancel = false; // Initialize isCancel to false
+            get { return isCancel; }
+            set
+            {
+                if (value)
+                {
+                    isCancel = true;
+                }
+                else
+                {
+                    isCancel = false;
+                }
+            }
         }
 
         public Room()
@@ -185,6 +190,18 @@ namespace Simple_Hotel_Management_System_OOP
         // =================================== Guest services ====================================
 
         // Create a method called Book() that sets isBooked to true.
+
+        public static int NumberOFNights()
+        {
+            Console.WriteLine("Enter the number of nights you want to book the room for:");
+            int nights;
+            while (!int.TryParse(Console.ReadLine(), out nights) || nights <= 0)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number of nights greater than 0.");
+            }
+            Console.WriteLine($"You have selected to book the room for {nights} nights.");
+            return nights; // Return the number of nights for booking
+        }
         public static void BookRoom(int roomnumber)
         {
             for (int i = 0; i < rooms.Count; i++)
@@ -193,9 +210,22 @@ namespace Simple_Hotel_Management_System_OOP
                 {
                     if (!rooms[i].isBooked)
                     {
-                        rooms[i].isBooked = true;
-                        Console.WriteLine("Room booked successfully.");
-                        return;
+                        if (rooms[i].isCancel)
+                        {
+                            Console.WriteLine("Room is canceled and cannot be booked.");
+                            return;
+                        }
+                        else
+                        {         
+                            int nights = NumberOFNights(); // Get the number of nights for booking
+                            Console.WriteLine("=======================================================");
+                            Console.WriteLine($"You have booked Room {rooms[i].RoomNumber} for {nights} nights.");
+                            Console.WriteLine($"Total Price: {rooms[i].DailyRate * nights}");
+                            rooms[i].isBooked = true; // Set the room as booked
+
+                            Console.ReadLine();
+                            return;
+                        }
                     }
                     else
                     {
@@ -208,7 +238,7 @@ namespace Simple_Hotel_Management_System_OOP
         //Create a method called Free() that sets isBooked to false. 
         public static void CancelRoomBooking(int roomnumber)
         {
-            for (int i = 0; i < roomCount; i++)
+            for (int i = 0; i < rooms.Count; i++)
             {
                 if (rooms[i].RoomNumber == roomnumber)
                 {
@@ -228,7 +258,7 @@ namespace Simple_Hotel_Management_System_OOP
         // Create a method called GetRoomDetails() that returns the room details as a string.
         public string GetRoomDetails(String RoomNumber)
         {
-            for (int i = 0; i < roomCount; i++)
+            for (int i = 0; i < rooms.Count; i++)
             {
                 if (rooms[i].RoomNumber.ToString() == RoomNumber)
                 {
@@ -262,17 +292,27 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
         // Create a method called GetBookedRooms() that returns a list of booked rooms.
-        public static List<Room> ViewAvailableRooms()
+        public static void ViewAvailableRooms()
         {
-            List<Room> bookedRooms = new List<Room>();
-            foreach (Room room in rooms)
+            //List<Room> bookedRooms = new List<Room>();
+            //foreach (Room room in rooms)
+            //{
+            //    if (room.IsBooked)
+            //    {
+            //        bookedRooms.Add(room);
+            //    }
+            //}
+            //return bookedRooms;
+
+            for(int i =0; i< rooms.Count; i++)
             {
-                if (room.IsBooked)
+                if (rooms[i].isBooked == false && rooms[i].isCancel == false)
                 {
-                    bookedRooms.Add(room);
+                    Console.WriteLine($"Room Number : {rooms[i].roomNumber}");
+                    Console.WriteLine($"Daily Rate : {rooms[i].DailyRate}");
+                    Console.WriteLine("======================================");
                 }
             }
-            return bookedRooms;
         }
 
 
