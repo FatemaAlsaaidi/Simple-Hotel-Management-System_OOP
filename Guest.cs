@@ -14,6 +14,8 @@ namespace Simple_Hotel_Management_System_OOP
         // list if gusts 
         public static List<Guest> guest = new List<Guest>(); // Static list to hold all guests
 
+       
+
         // private fields for Guest properties
         public string Name { get; set; } // Public property for name, using auto-property syntax
         public string National_ID { get; set; } // Public property for national ID, using auto-property syntax
@@ -24,6 +26,8 @@ namespace Simple_Hotel_Management_System_OOP
         public static int GuestNumber { get; private set; } // Static variable to assign a unique guest number
         private string Password; // Private field for password
         public string HashPassword { get; set; } // Private field for hashed password
+
+        public bool IsLogin { get; set; } // Property to check if the guest is logged in
 
         public string PASSWORD
         {
@@ -47,6 +51,7 @@ namespace Simple_Hotel_Management_System_OOP
             HotelName = hotelName; // Set the static hotel name
             HashPassword = hashPassword;
             Address = address; // Assign address, if needed
+            IsLogin = false; // Initialize IsLogin to false
         }
         
     }
