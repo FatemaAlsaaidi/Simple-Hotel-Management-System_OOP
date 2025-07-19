@@ -15,6 +15,18 @@ namespace Simple_Hotel_Management_System_OOP
         // Create file to save booking data
         public static string BookingFilePath = "bookings.txt"; // File path for booking data
 
+        // Function to save room data to a file
+        public static void SaveRoomDataToFile(List<Room> rooms)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(RoomFilePath))
+            {
+                foreach (Room room in rooms)
+                {
+                    file.WriteLine($"{room.RoomNumber},{room.roomType},{room.DailyRate},{room.IsBooked}");
+                }
+            }
+        }
+
 
     }
 }
