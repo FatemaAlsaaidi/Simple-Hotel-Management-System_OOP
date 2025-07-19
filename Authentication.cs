@@ -27,15 +27,16 @@ namespace Simple_Hotel_Management_System_OOP
 
         }
 
-        public static bool CheckAdmin(string AdminID, string password )
+        public static bool CheckAdmin(string AdminID, string password)
         {
             // Check if the provided AdminID matches the hardcoded admin ID
-            if (AdminID == "123456789") 
+            if (AdminID == "12345")
             {
                 return true; // Admin ID exists
             }
             return false; // Admin ID does not exist
         }
+
 
         // ============================ Ckeck if Password Exist ============================
         public static bool ExistPassword(string HashPassword)
@@ -51,6 +52,7 @@ namespace Simple_Hotel_Management_System_OOP
             }
             return false; // User password does not exist in the list
         }
+        
 
 
 
