@@ -10,7 +10,7 @@ namespace Simple_Hotel_Management_System_OOP
     class Booking
     {
         // booking history
-        private static List<Booking> bookingHistory = new List<Booking>(); // Static list to hold all bookings
+        public static List<Booking> bookingHistory = new List<Booking>(); // Static list to hold all bookings
         // Booking Fields
         private int BookingCounter = 0; // Counter to generate unique Booking IDs
         private int bookingID; // Unique identifier for the booking
