@@ -117,7 +117,17 @@ namespace Simple_Hotel_Management_System_OOP
                 {
                     // split the line by comma to get individual parts
                     string[] parts = line.Split(',');
-                    
+                    if (parts.Length == 5)
+                    {
+                        // store every part of data in a variable
+                        int bookingID = int.Parse(parts[0]);
+                        Room bookedRoom = Room.rooms.FirstOrDefault(r => r.RoomNumber == int.Parse(parts[1]));
+                        Guest bookingGuest = Guest.guest.FirstOrDefault(g => g.National_ID == parts[2]);
+                        DateTime bookingTime = DateTime.Parse(parts[3]);
+                        double totalPrice = double.Parse(parts[4]);
+                        
+                    }
+
                 }
 
 
