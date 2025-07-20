@@ -81,11 +81,11 @@ namespace Simple_Hotel_Management_System_OOP
                         string phoneNumber = parts[2];
                         string address = parts[3];
                         string hashPassword = parts[4];
-
                         // 1. Create a new Guest object using the overloaded constructor
                         Guest loadedGuest = new Guest(name, nationalID, phoneNumber, Guest.HotelName, hashPassword, address);
                         // 2. Add this new Guest object to the list
                         Guest.guest.Add(loadedGuest);
+
                     }
                 }
             }
@@ -98,7 +98,7 @@ namespace Simple_Hotel_Management_System_OOP
             {
                 foreach (Booking booking in bookings)
                 {
-                    file.WriteLine($"{booking.BookingID},{booking.BookedRoom},{booking.BookingGuest},{booking.BookingTime},{booking.TotalPrice}");
+                    file.WriteLine($"{booking.BookingID},{booking.bookedRoom},{booking.bookingGuest},{booking.BookingTime},{booking.TotalPrice}");
                 }
             }
         }
