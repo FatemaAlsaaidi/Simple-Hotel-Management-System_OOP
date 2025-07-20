@@ -368,15 +368,40 @@ namespace Simple_Hotel_Management_System_OOP
             //    }
             //}
             //return bookedRooms;
-
-            for(int i =0; i< rooms.Count; i++)
+            if (rooms.Count == 0)
             {
-                if (rooms[i].isBooked == false && rooms[i].isCancel == false)
+                Console.WriteLine("No rooms available.");
+                return;
+            }
+            else
+            {
+                for (int i = 0; i < rooms.Count; i++)
                 {
-                    Console.WriteLine($"Room Number : {rooms[i].roomNumber}");
-                    Console.WriteLine($"Daily Rate : {rooms[i].DailyRate}");
-                    Console.WriteLine("======================================");
+                    if (rooms[i].isBooked == false && rooms[i].isCancel == false)
+                    {
+                        Console.WriteLine($"Room Number : {rooms[i].roomNumber}");
+                        Console.WriteLine($"Daily Rate : {rooms[i].DailyRate}");
+                        Console.WriteLine("======================================");
+                    }
                 }
+            }
+        }
+
+        // create function to view booked rooms with specific guests with National Id
+        public static void ViewBookedRoomsByGuest(string nationalId)
+        {
+            bool found = false;
+            foreach (Booking booking in Booking.bookingHistory)
+            {
+                if (booking.bookingGuest.National_ID == nationalId)
+                {
+                    Console.WriteLine($"Booking ID: {booking.BookingID}, Room Number: {booking.bookedRoom.RoomNumber}, Guest Name: {booking.bookingGuest.Name}, Booking Time: {booking.BookingTime}, Total Price: {booking.TotalPrice}");
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                Console.WriteLine("No bookings found for the specified guest.");
             }
         }
 
