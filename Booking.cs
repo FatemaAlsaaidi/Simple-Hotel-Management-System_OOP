@@ -17,7 +17,7 @@ namespace Simple_Hotel_Management_System_OOP
         private Room bookedRoom; // The room that is booked
         private Guest bookingGuest; // The guest who booked the room
         private DateTime bookingTime; // The time when the booking was made
-        public static double TotalPrice { get; set; } // Number of nights for the booking
+        public double TotalPrice { get; set; } // Number of nights for the booking
         // Properties for Booking
         public int BookingID
         {
