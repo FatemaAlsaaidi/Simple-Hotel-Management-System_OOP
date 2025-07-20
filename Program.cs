@@ -217,15 +217,14 @@ namespace Simple_Hotel_Management_System_OOP
                     }
                     else
                     {
-                        
-                      
-                            Console.WriteLine("Login successful! Welcome to the hotel management system.");
-                            IsLogin(NationalID, HashPassword , true);
-                            currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID && g.HashPassword == HashPassword); // Get the current guest based on National ID and password
-                            Console.ReadLine(); // Wait for user input before continuing
-                            HotelServicesMenu(); // Call the HotelServicesMenu method to show hotel services
-                            Console.ReadLine(); // Wait for user input before continuing
-                        
+                        Console.WriteLine("Login successful! Welcome to the hotel management system.");
+                        currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID && g.HashPassword == HashPassword); // Problem: Should be Program.currentGuest
+                        Console.ReadLine(); // Wait for user input before continuing
+                        IsLogin(NationalID, HashPassword, true); // This line is too late and doesn't assign to static currentGuest
+
+                        HotelServicesMenu(); // Directly calls menu, which is often not ideal for a login function
+                        Console.ReadLine(); // Wait for user input before continuing
+
                     }
                 }
                 else if (Authentication.CheckAdmin(NationalID, EnterUserData.EnterUserPassword()))
