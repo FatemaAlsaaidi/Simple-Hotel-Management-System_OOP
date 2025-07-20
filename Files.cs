@@ -103,6 +103,10 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
 
+        public static void LoadBookingHistoryFromFile()
+        {
+            
+        }
 
 
     }
