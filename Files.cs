@@ -127,7 +127,12 @@ namespace Simple_Hotel_Management_System_OOP
                         double totalPrice = double.Parse(parts[4]);
                         // 1. Create a new Booking object using the constructor
                         Booking loadedBooking = new Booking(bookedRoom, bookingGuest, (int)(totalPrice / bookedRoom.DailyRate));
-                        
+                        // 2. Set the properties of the loadedBooking object
+                        loadedBooking.TotalPrice = totalPrice;
+                        loadedBooking.BookingID = bookingID;
+                        loadedBooking.BookingTime = bookingTime;
+                  
+
 
                     }
 
