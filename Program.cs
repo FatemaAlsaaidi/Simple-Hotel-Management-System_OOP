@@ -137,6 +137,8 @@ namespace Simple_Hotel_Management_System_OOP
                                         Guest.guest.Add(newGuest); // Add the new guest to the static list of guests
                                         currentGuest = newGuest;
                                         Console.WriteLine("Registration successful! Welcome to the hotel management system.");
+                                        // ==================== Save Guest Data to File ============================
+                                        Files.SaveGuestDataToFile(Guest.guest); // Save the updated guest list to the file
                                     }
 
                                 }
