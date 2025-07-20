@@ -111,8 +111,10 @@ namespace Simple_Hotel_Management_System_OOP
             // check file exists before reading 
             if (System.IO.File.Exists(BookingFilePath)) 
             {
-                Console.WriteLine("File Exist");
-            
+                // declare string array to hold lines from the file
+                string[] lines = System.IO.File.ReadAllLines(BookingFilePath);
+               
+
             }
             else
             {
