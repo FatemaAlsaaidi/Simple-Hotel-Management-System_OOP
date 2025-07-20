@@ -11,6 +11,8 @@ namespace Simple_Hotel_Management_System_OOP
 
         static void Main(string[] args)
         {
+            Console.WriteLine("========== Wellcome To Hostel System =======================");
+            Console.ReadLine();
             // Load room data from file at the start of the program
             Files.LoadRoomDataFromFile();
 
@@ -19,8 +21,9 @@ namespace Simple_Hotel_Management_System_OOP
 
             // Load booking data from file at the start of the program
             Files.LoadBookingHistoryFromFile();
+            bool UsersSystemMenu = true;
 
-            while (true)
+            while (UsersSystemMenu)
             {
                 Console.Clear(); // Clear the console for a fresh start
                 Console.WriteLine("Welcome to the Simple Hotel Management System!");
@@ -70,8 +73,8 @@ namespace Simple_Hotel_Management_System_OOP
                         break;
 
                     case '0':
-                        Console.WriteLine("Exiting the system. Thank you!");
-                        return;
+                        UsersSystemMenu = false; // Exit the main menu loop
+                        break; // Exit the program
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
@@ -95,6 +98,7 @@ namespace Simple_Hotel_Management_System_OOP
                 string NationalID = EnterUserData.EnterUserNationalID();
                 if (NationalID == "null")
                 {
+                    Console.WriteLine("National ID can not be empty"); // Notify user if National ID is invalid
                     return; // Exit if the National ID is invalid
                 }
                 else
@@ -102,6 +106,7 @@ namespace Simple_Hotel_Management_System_OOP
                     // Check if the National ID already exists
                     if (Authentication.CheckUserIDExist(NationalID))
                     {
+                        Console.WriteLine("National ID already exists. Please try again with a different National ID.");
                         return; // Exit if the National ID already exists
                     }
                     else
@@ -110,6 +115,7 @@ namespace Simple_Hotel_Management_System_OOP
                         string PhoneNumber = EnterUserData.EnterUserPhoneNumber();
                         if (PhoneNumber == "null")
                         {
+                            Console.WriteLine("Phone number can not be empty"); // Notify user if phone number is invalid
                             return; // Exit if the phone number is invalid
                         }
                         else
@@ -118,12 +124,14 @@ namespace Simple_Hotel_Management_System_OOP
                             string HashPassword = EnterUserData.EnterUserPassword();
                             if (HashPassword == "null")
                             {
+                                Console.WriteLine("Password can not be empty"); // Notify user if password is invalid
                                 return; // Exit if the password is invalid
                             }
                             else
                             {   // Check if the password already exists
                                 if (Authentication.ExistPassword(HashPassword))
                                 {
+                                    Console.WriteLine("Password already exists. Please try again with a different password.");
                                     return; // Exit if the password already exists
                                 }
                                 else
@@ -132,6 +140,7 @@ namespace Simple_Hotel_Management_System_OOP
                                     string Address = EnterUserData.EnterUserAddress();
                                     if (Address == "null")
                                     {
+                                        Console.WriteLine("Address can not be empty"); // Notify user if address is invalid
                                         return; // Exit if the address is invalid
                                     }
                                     else
@@ -144,7 +153,6 @@ namespace Simple_Hotel_Management_System_OOP
                                         // ==================== Save Guest Data to File ============================
                                         Files.SaveGuestDataToFile(Guest.guest); // Save the updated guest list to the file
                                     }
-
                                 }
                             }
 
@@ -198,25 +206,15 @@ namespace Simple_Hotel_Management_System_OOP
                     }
                     else
                     {
-                        if (Authentication.ExistPassword(HashPassword) == true)
-                        {
+                        
+                      
                             Console.WriteLine("Login successful! Welcome to the hotel management system.");
                             IsLogin(NationalID, HashPassword , true);
                             currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID && g.HashPassword == HashPassword); // Get the current guest based on National ID and password
                             Console.ReadLine(); // Wait for user input before continuing
                             HotelServicesMenu(); // Call the HotelServicesMenu method to show hotel services
                             Console.ReadLine(); // Wait for user input before continuing
-
-
-
-                        }
-                        else
-                        {
-                            Console.WriteLine("Incorrect password. Please try again.");
-                            Guest currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID);
-                            IsLogin(NationalID, HashPassword, false);
-                        }
-                   
+                        
                     }
                 }
                 else if (Authentication.CheckAdmin(NationalID, EnterUserData.EnterUserPassword()))
@@ -316,16 +314,38 @@ namespace Simple_Hotel_Management_System_OOP
                         break;
 
                     case '2':
-  
-                        // Call the method to cancel a room booking
-                        Console.WriteLine("Enter the room number you want to book:");
-                        int roomNumber1 = int.Parse(Console.ReadLine());
-                        Room.CancelRoomBooking(roomNumber1);
-                        Console.ReadLine(); // Wait for user input before continuing
+                        bool hasBooking = false;
+                        Booking foundBooking = null; // to keep the booking reference if found
+
+                        foreach (var booking in Booking.bookingHistory)
+                        {
+                            if (booking.bookingGuest.National_ID == currentGuest.National_ID)
+                            {
+                                hasBooking = true;
+                                foundBooking = booking;
+                                break;
+                            }
+                        }
+
+                        if (hasBooking)
+                        {
+                            Console.WriteLine($"Guest with National ID {currentGuest.National_ID} has a booking for Room {foundBooking.bookedRoom.RoomNumber}.");
+
+                            // Proceed to cancel or other actions:
+                            Room.CancelRoomBooking(foundBooking.bookedRoom.RoomNumber);
+                            Console.WriteLine("Booking cancelled successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No booking found for this guest.");
+                        }
+
+                        Console.ReadLine();
                         break;
                     case '3':
                         // Call the method to view booked rooms
-                        Room.ViewBookedRooms();
+                        string NationalID = currentGuest.National_ID; // Get the current guest's National ID
+                        Room.ViewBookedRoomsByGuest(NationalID);
                         Console.ReadLine(); // Wait for user input before continuing
                         break;
                     case '4':
