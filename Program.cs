@@ -17,7 +17,7 @@ namespace Simple_Hotel_Management_System_OOP
             Files.LoadRoomDataFromFile();
 
             // Load guest data from file at the start of the program
-            Files.LoadGuestDataFromFile();
+            Files.LoadGuestDataFromFile(); 
 
             // Load booking data from file at the start of the program
             Files.LoadBookingHistoryFromFile();
@@ -49,27 +49,38 @@ namespace Simple_Hotel_Management_System_OOP
                         break;
 
                     case '3':
-                        if (currentGuest.IsLogin)
-                        {
-                            // If the user is logged in, show hotel services menu
-                            HotelServicesMenu();
-                        }
-                        else
+                        // Check if a guest is currently logged in.
+                        // Assuming 'currentGuest' is a static field in your Program class
+                        if (Program.currentGuest == null || !Program.currentGuest.IsLogin) // Check if currentGuest is null OR not logged in
                         {
                             Console.WriteLine("You need to sign in first to access hotel services.");
-                            Console.WriteLine("Sign In...");
-                            Console.ReadLine(); // Wait for user input before continuing
-                            SignIn(); // Call the SignIn method to handle user login
-                            if (currentGuest.IsLogin)
+                            Console.WriteLine("Signing In...");
+
+                            // Call the SignIn method to handle user login.
+                            // The SignIn method should ideally update Program.currentGuest upon successful login.
+                            SignIn();
+
+                            // After SignIn, check if a guest is now logged in.
+                            if (Program.currentGuest != null && Program.currentGuest.IsLogin)
                             {
+                                Console.WriteLine("Login successful! Redirecting to hotel services.");
                                 HotelServicesMenu(); // Show hotel services menu if login is successful
                             }
                             else
                             {
-                                Console.WriteLine("Login failed. Please try again.");
+                                Console.WriteLine("Login failed. Please try again or create an account.");
                             }
                         }
-                        Console.ReadLine(); // Wait for user input before continuing
+                        else // currentGuest is not null and is already logged in
+                        {
+                            Console.WriteLine($"Welcome back, {Program.currentGuest.Name}! Accessing hotel services...");
+                            HotelServicesMenu(); // User is already logged in, show hotel services menu
+                        }
+                        // This ReadLine can be useful to pause the console after the entire process,
+                        // but consider if it's truly needed after HotelServicesMenu() is called.
+                        // If HotelServicesMenu() itself handles pausing or returns to a main menu,
+                        // this ReadLine might be redundant or disruptive.
+                        Console.ReadLine();
                         break;
 
                     case '0':
