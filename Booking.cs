@@ -14,8 +14,8 @@ namespace Simple_Hotel_Management_System_OOP
         // Booking Fields
         private int BookingCounter = 0; // Counter to generate unique Booking IDs
         private int bookingID; // Unique identifier for the booking
-        private Room bookedRoom; // The room that is booked
-        private Guest bookingGuest; // The guest who booked the room
+        public Room bookedRoom; // The room that is booked
+        public Guest bookingGuest; // The guest who booked the room
         private DateTime bookingTime; // The time when the booking was made
         public double TotalPrice { get; set; } // Number of nights for the booking
         // Properties for Booking
@@ -25,17 +25,13 @@ namespace Simple_Hotel_Management_System_OOP
 
             set { BookingID = value; }
         }
-        public Room BookedRoom
-        {
-            get { return bookedRoom; }
+        //public Room BookedRoom
+        //{
+        //    get { return bookedRoom; }
 
-            // No setter for read-only property
-        }
-        public Guest BookingGuest
-        {
-            get { return bookingGuest; }
-            // No setter for read-only property
-        }
+        //    // No setter for read-only property
+        //}
+        
 
         public DateTime BookingTime
         {
