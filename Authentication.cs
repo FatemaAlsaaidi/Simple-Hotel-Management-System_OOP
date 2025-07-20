@@ -39,20 +39,17 @@ namespace Simple_Hotel_Management_System_OOP
 
 
         // ============================ Ckeck if Password Exist ============================
-        public static bool ExistPassword(string HashPassword)
+        public static bool CheckPassword(string nationalID, string hashPassword)
         {
-            // Loop through the list of registered password
-            foreach (Guest guest in Guest.guest)
+            Guest user = Guest.guest.FirstOrDefault(g => g.National_ID == nationalID);
+            if (user != null)
             {
-                // Check if the current guest's National ID matches the provided UserID
-                if (guest.HashPassword.Equals(HashPassword, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true; // User ID exists in the list
-                }
+                return user.HashPassword == hashPassword;
             }
-            return false; // User password does not exist in the list
+            return false;
         }
-        
+
+
 
 
 
