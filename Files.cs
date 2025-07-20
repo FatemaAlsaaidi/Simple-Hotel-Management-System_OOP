@@ -67,7 +67,35 @@ namespace Simple_Hotel_Management_System_OOP
                 }
             }
         }
-        
+        // Function to load guest data from a file
+        public static void LoadGuestDataFromFile()
+        {
+            // clear list of guest before loading data from file
+            Guest.guest.Clear();
+            // Check if the file exists before reading
+            if (System.IO.File.Exists(GuestFilePath))
+            {
+                string[] lines = System.IO.File.ReadAllLines(GuestFilePath);
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(',');
+                    if (parts.Length == 5)
+                    {
+                        string name = parts[0];
+                        string nationalID = parts[1];
+                        string phoneNumber = parts[2];
+                        string address = parts[3];
+                        string hashPassword = parts[4];
+
+                        // 1. Create a new Guest object using the overloaded constructor
+                        Guest loadedGuest = new Guest(name, nationalID, phoneNumber, Guest.HotelName, hashPassword, address);
+                        // 2. Add this new Guest object to the list
+                        Guest.guest.Add(loadedGuest);
+                    }
+                }
+            }
+        }
+
 
 
     }
