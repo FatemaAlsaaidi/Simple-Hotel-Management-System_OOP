@@ -38,8 +38,7 @@ namespace Simple_Hotel_Management_System_OOP
                 
             }
         }
-        
-        
+                
         // Add constructor overloads to Guest class to initialize data during object creation.
         public Guest(string name, string national_ID, string phoneNumber ,string hotelName, string hashPassword, string address)
         {
@@ -53,6 +52,6 @@ namespace Simple_Hotel_Management_System_OOP
             Address = address; // Assign address, if needed
             IsLogin = false; // Initialize IsLogin to false
         }
-        
+
     }
 }
