@@ -131,7 +131,8 @@ namespace Simple_Hotel_Management_System_OOP
                         loadedBooking.TotalPrice = totalPrice;
                         loadedBooking.BookingID = bookingID;
                         loadedBooking.BookingTime = bookingTime;
-                  
+                        // 3. Add this new Booking object to the list
+                        Booking.bookingHistory.Add(loadedBooking);
 
 
                     }
