@@ -286,7 +286,8 @@ namespace Simple_Hotel_Management_System_OOP
                                         Console.WriteLine($"Booking successful! Room {roomToBook.RoomNumber} booked for {nights} nights at a total price of {newBooking.TotalPrice:C}.");
                                         // Add the new booking to the booking history
                                         Booking.bookingHistory.Add(newBooking); // Add the new booking to the static list of bookings
-                                        
+                                        // Save the booking to the file
+                                        Files.SaveBookingDataToFile(Booking.bookingHistory); // Save the updated booking history to the file
                                     }
                                     else
                                     {
