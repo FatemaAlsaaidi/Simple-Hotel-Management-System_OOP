@@ -23,7 +23,7 @@ namespace Simple_Hotel_Management_System_OOP
         {
             get { return BookingID; }
 
-            // No setter for read-only property
+            set { BookingID = value; }
         }
         public Room BookedRoom
         {
@@ -40,7 +40,7 @@ namespace Simple_Hotel_Management_System_OOP
         public DateTime BookingTime
         {
             get { return bookingTime; }
-            // No setter for read-only property
+            set { bookingTime = value; }
         }
         // A constructor that takes a Room and a Guest
         public Booking(Room room, Guest guest, int nights)
@@ -59,8 +59,6 @@ namespace Simple_Hotel_Management_System_OOP
                 bookingTime = DateTime.Now;
                 bookingHistory.Add(this);
 
-                Console.WriteLine($"Booking confirmed for {guest.Name} in Room {room.RoomNumber}.");
-                Console.WriteLine($"Total price: {TotalPrice:C} for {nights} nights.");
             }
         }
 
