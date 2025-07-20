@@ -183,6 +183,7 @@ namespace Simple_Hotel_Management_System_OOP
                         }
                         Console.WriteLine("Room " + rooms[i].RoomNumber + " added successfully with type: " + rooms[i].roomType);
                         Files.SaveRoomDataToFile(rooms); // Save the room data to a file
+                        Console.WriteLine("Room data saved to file successfully.");
                         Console.WriteLine("=======================================================");
                     } 
                     Console.WriteLine("Do you want to add another room? (y/n)");
@@ -191,7 +192,6 @@ namespace Simple_Hotel_Management_System_OOP
                         {
                             break; // Exit the loop if the user does not want to add another room
                         }
-
                     }
                 } while (addAnotherRoom.ToLower() == "y"); // Continue adding rooms until the user chooses not to
         }
