@@ -16,7 +16,6 @@ namespace Simple_Hotel_Management_System_OOP
         public static string BookingFilePath = "bookings.txt"; // File path for booking data
 
         // ============================================ Room File Operations ============================================
-        // Function to save room data to a file
         public static void SaveRoomDataToFile(List<Room> rooms)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(RoomFilePath))
@@ -27,8 +26,6 @@ namespace Simple_Hotel_Management_System_OOP
                 }
             }
         }
-
-        // Function to load room data from a file
         public static void LoadRoomDataFromFile()
         {
             // clear list of room before loading data from file
@@ -56,7 +53,6 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
         // ============================================ Guest File Operations ============================================
-        // Function to save guest data to a file
         public static void SaveGuestDataToFile(List<Guest> guests)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(GuestFilePath))
@@ -67,7 +63,6 @@ namespace Simple_Hotel_Management_System_OOP
                 }
             }
         }
-        // Function to load guest data from a file
         public static void LoadGuestDataFromFile()
         {
             // clear list of guest before loading data from file
@@ -92,6 +87,18 @@ namespace Simple_Hotel_Management_System_OOP
                         // 2. Add this new Guest object to the list
                         Guest.guest.Add(loadedGuest);
                     }
+                }
+            }
+        }
+
+        // ============================================ Booking File Operations ============================================
+        public static void SaveBookingDataToFile(List<Booking> bookings)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(BookingFilePath))
+            {
+                foreach (Booking booking in bookings)
+                {
+                    file.WriteLine($"{booking.BookingID},{booking.BookedRoom},{booking.BookingGuest},{booking.BookingTime},{booking.TotalPrice}");
                 }
             }
         }
