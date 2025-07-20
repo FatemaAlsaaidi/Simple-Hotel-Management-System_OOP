@@ -283,6 +283,10 @@ namespace Simple_Hotel_Management_System_OOP
                                     if (currentGuest != null)
                                     {
                                         Booking newBooking = new Booking(roomToBook, currentGuest, nights);
+                                        Console.WriteLine($"Booking successful! Room {roomToBook.RoomNumber} booked for {nights} nights at a total price of {newBooking.TotalPrice:C}.");
+                                        // Add the new booking to the booking history
+                                        Booking.bookingHistory.Add(newBooking); // Add the new booking to the static list of bookings
+                                        
                                     }
                                     else
                                     {
