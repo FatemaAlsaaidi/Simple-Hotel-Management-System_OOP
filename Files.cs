@@ -105,7 +105,8 @@ namespace Simple_Hotel_Management_System_OOP
 
         public static void LoadBookingHistoryFromFile()
         {
-            
+            // clear list of BookingHistory before loading data from file
+            Booking.bookingHistory.Clear();
         }
 
 
