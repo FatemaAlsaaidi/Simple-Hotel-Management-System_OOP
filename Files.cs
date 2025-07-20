@@ -125,7 +125,10 @@ namespace Simple_Hotel_Management_System_OOP
                         Guest bookingGuest = Guest.guest.FirstOrDefault(g => g.National_ID == parts[2]);
                         DateTime bookingTime = DateTime.Parse(parts[3]);
                         double totalPrice = double.Parse(parts[4]);
+                        // 1. Create a new Booking object using the constructor
+                        Booking loadedBooking = new Booking(bookedRoom, bookingGuest, (int)(totalPrice / bookedRoom.DailyRate));
                         
+
                     }
 
                 }
