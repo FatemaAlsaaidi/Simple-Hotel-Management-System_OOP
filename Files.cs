@@ -107,6 +107,18 @@ namespace Simple_Hotel_Management_System_OOP
         {
             // clear list of BookingHistory before loading data from file
             Booking.bookingHistory.Clear();
+
+            // check file exists before reading 
+            if (System.IO.File.Exists(BookingFilePath)) 
+            {
+                Console.WriteLine("File Exist");
+            
+            }
+            else
+            {
+                Console.WriteLine("File dose not exist");
+            }
+
         }
 
 
