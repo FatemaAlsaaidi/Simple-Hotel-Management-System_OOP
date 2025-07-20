@@ -146,6 +146,7 @@ namespace Simple_Hotel_Management_System_OOP
             try
             {
                 string Password = ""; // Initialize name variable
+                string enteredHashed = "";
                 do
                 {
                     Console.Write("Enter your password: ");
@@ -161,7 +162,7 @@ namespace Simple_Hotel_Management_System_OOP
                     }
                     else
                     {
-                        string enteredHashed = HashPassword(Password);             
+                        enteredHashed = HashPassword(Password);             
                         isValid = true;
                     }
                 } while (isValid == false && tries < 3); // Ensure name is not null or whitespace
@@ -174,7 +175,7 @@ namespace Simple_Hotel_Management_System_OOP
                     Console.ReadLine();
                     return "null"; // Return "null" if the user exceeds the maximum number of attempts
                 }
-                return Password;
+                return enteredHashed;
                
             }
             catch (Exception ex)
@@ -208,7 +209,7 @@ namespace Simple_Hotel_Management_System_OOP
             return password;
         }
         // Hash the password using SHA256
-        static string HashPassword(string password)
+        public static string HashPassword(string password)
         {
             using (var sha256 = System.Security.Cryptography.SHA256.Create())
             {
