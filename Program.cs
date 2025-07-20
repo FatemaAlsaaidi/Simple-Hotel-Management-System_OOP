@@ -16,6 +16,10 @@ namespace Simple_Hotel_Management_System_OOP
 
             // Load guest data from file at the start of the program
             Files.LoadGuestDataFromFile();
+
+            // Load booking data from file at the start of the program
+            Files.LoadBookingHistoryFromFile();
+
             while (true)
             {
                 Console.Clear(); // Clear the console for a fresh start
