@@ -112,8 +112,14 @@ namespace Simple_Hotel_Management_System_OOP
             if (System.IO.File.Exists(BookingFilePath)) 
             {
                 // declare string array to hold lines from the file
-                string[] lines = System.IO.File.ReadAllLines(BookingFilePath);
-               
+                string [] lines = System.IO.File.ReadAllLines(BookingFilePath);
+                foreach (string line in lines)
+                {
+                    // split the line by comma to get individual parts
+                    string[] parts = line.Split(',');
+                    
+                }
+
 
             }
             else
