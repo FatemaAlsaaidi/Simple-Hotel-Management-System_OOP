@@ -358,6 +358,7 @@ namespace Simple_Hotel_Management_System_OOP
                 Console.WriteLine("2. Remove a Room");
                 Console.WriteLine("3. View All Rooms");
                 Console.WriteLine("4. View All Cancelled Rooms");
+                Console.WriteLine("5. View All Booked Rooms");
                 Console.WriteLine("0. Exit to Main Menu");
                 char choice = Console.ReadKey().KeyChar;
                 Console.WriteLine(); // Move to the next line after reading the key
@@ -386,6 +387,11 @@ namespace Simple_Hotel_Management_System_OOP
                         break;
                     case '4':
                         Room.ViewAllCancelRooms();
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    case '5':
+                        // Call the method to view all booked rooms
+                        Room.ViewBookedRooms();
                         Console.ReadLine(); // Wait for user input before continuing
                         break;
                     case '0':
