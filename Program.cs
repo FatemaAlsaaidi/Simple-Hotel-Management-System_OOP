@@ -359,6 +359,7 @@ namespace Simple_Hotel_Management_System_OOP
                 Console.WriteLine("3. View All Rooms");
                 Console.WriteLine("4. View All Cancelled Rooms");
                 Console.WriteLine("5. View All Booked Rooms");
+                Console.WriteLine("6. View Booked Rooms By Guest");
                 Console.WriteLine("0. Exit to Main Menu");
                 char choice = Console.ReadKey().KeyChar;
                 Console.WriteLine(); // Move to the next line after reading the key
@@ -394,6 +395,30 @@ namespace Simple_Hotel_Management_System_OOP
                         Room.ViewBookedRooms();
                         Console.ReadLine(); // Wait for user input before continuing
                         break;
+                    case '6':
+                        // Call the method to view booked rooms by guest
+                        // ============= Enter User National ID ==============
+                        string NationalID = EnterUserData.EnterUserNationalID();
+                        if (NationalID == "null")
+                        {
+                            return; // Exit if the National ID is invalid
+                        }
+                        else
+                        {
+                            // Check if the National ID already exists
+                            if (Authentication.CheckUserIDExist(NationalID))
+                            {
+                                string nationalID = Console.ReadLine();
+                                Room.ViewBookedRoomsByGuest(nationalID);
+                                Console.ReadLine(); // Wait for user input before continuing
+                            }
+                            else
+                            {
+                                Console.WriteLine("National ID does not exist. Please try again.");
+                                Console.ReadLine(); // Wait for user input before continuing
+                            }
+                        }
+                    break;
                     case '0':
                         InAdminMenu = false;
                         break; // Exit to main menu
