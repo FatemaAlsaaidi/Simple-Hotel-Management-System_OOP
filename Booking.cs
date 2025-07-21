@@ -144,7 +144,12 @@ namespace Simple_Hotel_Management_System_OOP
                 Console.WriteLine("Selected room is not available.");
                 return;
             }
-  
+
+            // 7. Add booking to bookings history list
+            Booking newBooking = new Booking(selectedRoom, Guest.guest.FirstOrDefault(g => g.National_ID == National_ID), numberOfDays, checkInDate, checkOutDate, true);
+            bookingHistory.Add(newBooking); // Add the new booking to the booking history
+
+
 
 
 
