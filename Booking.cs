@@ -104,7 +104,14 @@ namespace Simple_Hotel_Management_System_OOP
             Console.WriteLine("Available Rooms:");
             Room.ViewAvailableRooms();
 
-            
+            // 2. Let user select room number
+            Console.Write("Enter the room number you want to book: ");
+            int roomNumber;
+            while (!int.TryParse(Console.ReadLine(), out roomNumber) || !Room.IsRoomAvailable(roomNumber))
+            {
+                Console.Write("Invalid room number. Please enter a valid room number: ");
+            }
+         
         }
 
 
