@@ -17,9 +17,9 @@ namespace Simple_Hotel_Management_System_OOP
         public Room bookedRoom; // The room that is booked
         public Guest bookingGuest; // The guest who booked the room
         private DateTime bookingTime; // The time when the booking was made
-        private DateTime CheckInDate; // The date when the guest checks in
-        private DateTime CheckOutDate; // The date when the guest checks out
-        private bool IsActive; // Indicates if the booking is currently active
+        private DateTime checkInDate; // The date when the guest checks in
+        private DateTime checkOutDate; // The date when the guest checks out
+        private bool isActive; // Indicates if the booking is currently active
         public double TotalPrice { get; set; } // Number of nights for the booking
         // Properties for Booking
         public int BookingID
@@ -41,8 +41,17 @@ namespace Simple_Hotel_Management_System_OOP
             get { return bookingTime; }
             set { bookingTime = value; }
         }
+        // property for CheckInDate
+        public DateTime CheckInDate
+        {
+            get { return checkInDate; }
+            set { checkInDate = value; }
+
+        }
+
+        
         // A constructor that takes a Room and a Guest
-        public Booking(Room room, Guest guest, int nights)
+        public Booking(Room room, Guest guest, int nights, DateTime Check_Date_IN, DateTime check_Date_Out, bool Is_Active)
         {
             if (room.IsBooked)
             {
@@ -56,6 +65,9 @@ namespace Simple_Hotel_Management_System_OOP
                 bookedRoom.IsBooked = true;
                 TotalPrice = room.DailyRate * nights;
                 bookingTime = DateTime.Now;
+                checkInDate = Check_Date_IN; // Default to current time for check-in
+                checkOutDate = check_Date_Out; // Default to current time + nights for check-out
+                isActive = Is_Active; // Set booking as active
                 bookingHistory.Add(this);
 
             }
