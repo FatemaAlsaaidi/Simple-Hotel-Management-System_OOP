@@ -64,7 +64,7 @@ namespace Simple_Hotel_Management_System_OOP
                             if (Program.currentGuest != null && Program.currentGuest.IsLogin)
                             {
                                 Console.WriteLine("Login successful! Redirecting to hotel services.");
-                                HotelServicesMenu(); // Show hotel services menu if login is successful
+                                HotelServicesMenu(currentGuest.National_ID, currentGuest.IsLogin); // Show hotel services menu if login is successful
                             }
                             else
                             {
@@ -74,7 +74,7 @@ namespace Simple_Hotel_Management_System_OOP
                         else // currentGuest is not null and is already logged in
                         {
                             Console.WriteLine($"Welcome back, {Program.currentGuest.Name}! Accessing hotel services...");
-                            HotelServicesMenu(); // User is already logged in, show hotel services menu
+                            HotelServicesMenu(currentGuest.National_ID, currentGuest.IsLogin); // User is already logged in, show hotel services menu
                         }
                         // This ReadLine can be useful to pause the console after the entire process,
                         // but consider if it's truly needed after HotelServicesMenu() is called.
@@ -176,20 +176,17 @@ namespace Simple_Hotel_Management_System_OOP
                
         }
 
-        // Flag to check if the user is logged in function 
-        public static bool IsLogin (string NationalID, string  HashPassword, bool isLogin){
-            Guest currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID && g.HashPassword == HashPassword);
-            if (currentGuest != null)
-            {
-                currentGuest.IsLogin = isLogin; // Set IsLogin to true for the current guest
+        //// Flag to check if the user is logged in function 
+        //public static bool IsLogin (string NationalID,  bool isLogin){
+        //    Guest currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID && g.HashPassword == HashPassword);
+        //    if (currentGuest != null)
+        //    {
+        //        currentGuest.IsLogin = isLogin; // Set IsLogin to true for the current guest
 
-            }
+        //    }
 
-            return currentGuest != null && currentGuest.IsLogin; // Return true if the guest is logged in, false otherwise
-        }
-
-        
-
+        //    return currentGuest != null && currentGuest.IsLogin; // Return true if the guest is logged in, false otherwise
+        //}
 
         public static void SignIn()
         {
@@ -218,20 +215,35 @@ namespace Simple_Hotel_Management_System_OOP
                     else
                     {
                         Console.WriteLine("Login successful! Welcome to the hotel management system.");
-                        currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID && g.HashPassword == HashPassword); // Problem: Should be Program.currentGuest
+                        //currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID && g.HashPassword == HashPassword); // Problem: Should be Program.currentGuest
                         Console.ReadLine(); // Wait for user input before continuing
-                        IsLogin(NationalID, HashPassword, true); // This line is too late and doesn't assign to static currentGuest
+                                            // Check if a guest is currently logged in
+                        for (int i = 0; i < Guest.guest.Count; i++)
+                        {
+                            if (Guest.guest[i].National_ID == NationalID)
+                            {
+                                currentGuest = Guest.guest[i]; // Assign the current guest based on National ID
+                                if (currentGuest.IsLogin == false)
+                                {
+                                    // Set the IsLogin property to false
+                                    currentGuest.IsLogin = true;
+                                    Console.WriteLine("Login successful! Welcome to the hotel management system.");
+                                    HotelServicesMenu(NationalID, currentGuest.IsLogin); // Directly calls menu, which is often not ideal for a login function
+                                    Console.ReadLine(); // Wait for user input before continuing
 
-                        HotelServicesMenu(); // Directly calls menu, which is often not ideal for a login function
-                        Console.ReadLine(); // Wait for user input before continuing
+                                }
 
+                            }
+                        }
+
+                        
                     }
                 }
                 else if (Authentication.CheckAdmin(NationalID, EnterUserData.EnterUserPassword()))
                 {
                     Console.WriteLine("Admin login successful! Welcome to the admin panel.");
-                    Guest currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID);
-                    IsLogin(NationalID, HashPassword, true);
+                    Guest currentGuest = Guest.guest.FirstOrDefault(g => g.National_ID == NationalID); // Get the current guest based on National ID
+                    //IsLogin(NationalID, HashPassword, true);
                     Console.ReadLine();
                     AdminServicesMenu(); // Call the AdminServicesMenu method to show admin services
                     Console.ReadLine(); // Wait for user input before continuing
@@ -246,6 +258,31 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
 
+        public static void SignOut(string NationalID, bool IsLogin)
+        {
+            // Check if a guest is currently logged in
+            for (int i = 0; i < Guest.guest.Count; i++)
+            {
+                if (Guest.guest[i].National_ID == NationalID)
+                {
+                    currentGuest = Guest.guest[i]; // Assign the current guest based on National ID
+                    IsLogin = currentGuest.IsLogin; // Get the login status of the current guest
+                    if (IsLogin == true)
+                    {
+                        // Set the IsLogin property to false
+                        currentGuest.IsLogin = false;
+                        Console.WriteLine($"Goodbye, {currentGuest.Name}! You have been successfully signed out.");
+                        currentGuest = null; // Clear the current guest
+                    }
+                    else
+                    {
+                        Console.WriteLine("No guest is currently logged in.");
+                    }
+                }
+            }
+            
+        }
+
         //public static void PrintData()
         //{
         //    // Print all registered guests
@@ -256,7 +293,7 @@ namespace Simple_Hotel_Management_System_OOP
         //}
 
         // =========================== Menue of Hstel Services ===========================
-        public static void HotelServicesMenu()
+        public static void HotelServicesMenu(string national_ID, bool IsLogin)
         {
             bool InHotelServicesMenu = true; // Flag to control the hotel services menu loop
             while (InHotelServicesMenu)
@@ -268,7 +305,7 @@ namespace Simple_Hotel_Management_System_OOP
                 Console.WriteLine("2. Cancel a Room Booking");
                 Console.WriteLine("3. View Booked Rooms");
                 Console.WriteLine("4. View Available Rooms");
-                Console.WriteLine("0. Exit to Main Menu");
+                Console.WriteLine("0. Sign Out");
 
                 char choice = Console.ReadKey().KeyChar;
                 Console.ReadKey();
@@ -329,7 +366,7 @@ namespace Simple_Hotel_Management_System_OOP
 
                         foreach (var booking in Booking.bookingHistory)
                         {
-                            if (booking.bookingGuest.National_ID == currentGuest.National_ID)
+                            if (booking.bookingGuest.National_ID == national_ID)
                             {
                                 hasBooking = true;
                                 foundBooking = booking;
@@ -354,8 +391,8 @@ namespace Simple_Hotel_Management_System_OOP
                         break;
                     case '3':
                         // Call the method to view booked rooms
-                        string NationalID = currentGuest.National_ID; // Get the current guest's National ID
-                        Room.ViewBookedRoomsByGuest(NationalID);
+                        //string NationalID = currentGuest.National_ID; // Get the current guest's National ID
+                        Room.ViewBookedRoomsByGuest(national_ID);
                         Console.ReadLine(); // Wait for user input before continuing
                         break;
                     case '4':
@@ -364,6 +401,7 @@ namespace Simple_Hotel_Management_System_OOP
                         Console.ReadLine(); // Wait for user input before continuing
                         break;
                     case '0':
+                        SignOut(national_ID, IsLogin); // Call the SignOut method to handle user logout
                         InHotelServicesMenu = false;
                         break; // Exit to main menu
                     default:
