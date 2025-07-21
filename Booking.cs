@@ -121,8 +121,17 @@ namespace Simple_Hotel_Management_System_OOP
                     return;
                 }
             }
+            // 4. Enter number of days
+            Console.WriteLine("Enter the number of days you want to book the room for: ");
+            int numberOfDays;
+            while (!int.TryParse(Console.ReadLine(), out numberOfDays) || numberOfDays <= 0)
+            {
+                Console.Write("Invalid number of days. Please enter a valid number: ");
+            }
+            // 5. Set check-in and check-out dates
+          
 
-       
+
 
 
 
