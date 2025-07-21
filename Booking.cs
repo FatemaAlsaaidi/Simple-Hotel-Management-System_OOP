@@ -11,6 +11,8 @@ namespace Simple_Hotel_Management_System_OOP
     {
         // booking history
         public static List<Booking> bookingHistory = new List<Booking>(); // Static list to hold all bookings
+        // guest booking list
+        public static List<Guest> guestBookingInfo = new List<Guest>(); // Static list to hold all guests who have made bookings
         // Booking Fields
         private int BookingCounter = 0; // Counter to generate unique Booking IDs
         private int bookingID; // Unique identifier for the booking
@@ -87,16 +89,26 @@ namespace Simple_Hotel_Management_System_OOP
                 bookedRoom.IsBooked = true;
                 TotalPrice = room.DailyRate * nights;
                 bookingTime = DateTime.Now;
-                checkInDate = Check_Date_IN; // Default to current time for check-in
-                checkOutDate = check_Date_Out; // Default to current time + nights for check-out
-                isActive = Is_Active; // Set booking as active
+                CheckInDate = DateTime.Now;
+                CheckOutDate = DateTime.Now.AddDays(nights);
+                IsActive = true;
                 bookingHistory.Add(this);
 
             }
         }
+        // Create a method to check in a guest
+        public void CheckIn(string National_ID)
+        {
+            // 1. Show available rooms
+            bookingHistory.Clear();
+            Console.WriteLine("Available Rooms:");
+            Room.ViewAvailableRooms();
+
+            
+        }
 
 
-        
+
 
 
 
