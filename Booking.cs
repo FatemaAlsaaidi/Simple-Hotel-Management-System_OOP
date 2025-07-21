@@ -131,7 +131,21 @@ namespace Simple_Hotel_Management_System_OOP
             // 5. Set check-in and check-out dates
             DateTime checkInDate = DateTime.Now;
             DateTime checkOutDate = checkInDate.AddDays(numberOfDays);
-          
+
+            // 6. Mark room as unavailable
+            Room selectedRoom = Room.GetRoomDetails(roomNumber);
+            if (selectedRoom != null)
+            {
+                selectedRoom.IsBooked = true; // Mark the room as booked
+                Console.WriteLine($"Room {roomNumber} has been booked successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Selected room is not available.");
+                return;
+            }
+  
+
 
 
 
