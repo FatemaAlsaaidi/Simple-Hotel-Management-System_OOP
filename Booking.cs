@@ -129,7 +129,10 @@ namespace Simple_Hotel_Management_System_OOP
                 Console.Write("Invalid number of days. Please enter a valid number: ");
             }
             // 5. Set check-in and check-out dates
+            DateTime checkInDate = DateTime.Now;
+            DateTime checkOutDate = checkInDate.AddDays(numberOfDays);
           
+
 
 
 
