@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Simple_Hotel_Management_System_OOP
 {
@@ -153,7 +154,7 @@ namespace Simple_Hotel_Management_System_OOP
         // Method to check out a guest
         public void CheckOut(string National_ID)
         {
-            // 1. show booked rooms for the guest
+            // 1. show all booked rooms for the guest
             Console.WriteLine("Booked Rooms for Guest:");
             foreach (var booking in bookingHistory)
             {
@@ -164,12 +165,34 @@ namespace Simple_Hotel_Management_System_OOP
                     Console.WriteLine("--------------------------------------------------");
                 }
             }
-            // 1. Ask user for room number or booking ID
+            // 2. Ask user for room number or booking ID
+            bool found = false;
 
-            // 2. Find booking and check if it's active
-            // 3. If so, mark booking as inactive
-            // 4. Mark room as available
-            // 5. Optionally calculate bill
+            Console.WriteLine("Enter the room number:");
+            if (!int.TryParse(Console.ReadLine(), out int roomNumber))
+            {
+                Console.WriteLine("Invalid room number input.");
+                return;
+            }
+            for (int i = 0; i < bookingHistory.Count; i++)
+            {
+                if (bookingHistory[i].bookedRoom.RoomNumber == roomNumber
+                    && bookingHistory[i].IsActive
+                    && bookingHistory[i].bookingGuest.National_ID == National_ID)
+                {
+                    bookingHistory[i].IsActive = false;
+                    bookingHistory[i].bookedRoom.IsBooked = false;
+                    Console.WriteLine($"Booking with this room number{bookingHistory[i].bookedRoom.RoomNumber} has be successfully cancel");
+                    found = true;
+                    break;
+
+                }
+            }
+            if (!found)
+            {
+                Console.WriteLine("No active booking found for this room number under your ID.");
+            }
+
         }
 
     }
