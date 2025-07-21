@@ -387,6 +387,19 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
 
+        // Create a method to check if a room is available
+        public static bool IsRoomAvailable(int roomNumber)
+        {
+            foreach (Room room in rooms)
+            {
+                if (room.RoomNumber == roomNumber && !room.IsBooked && !room.isCancel)
+                {
+                    return true; // Room is available
+                }
+            }
+            return false; // Room is not available
+        }
+
         // create function to view booked rooms with specific guests with National Id
         public static void ViewBookedRoomsByGuest(string nationalId)
         {
