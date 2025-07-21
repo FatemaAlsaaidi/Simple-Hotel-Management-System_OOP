@@ -65,7 +65,12 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
 
-        
+        // property for IsActive
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { isActive = value; }
+        }
 
         // A constructor that takes a Room and a Guest
         public Booking(Room room, Guest guest, int nights, DateTime Check_Date_IN, DateTime check_Date_Out, bool Is_Active)
