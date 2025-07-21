@@ -17,6 +17,9 @@ namespace Simple_Hotel_Management_System_OOP
         public Room bookedRoom; // The room that is booked
         public Guest bookingGuest; // The guest who booked the room
         private DateTime bookingTime; // The time when the booking was made
+        private DateTime CheckInDate; // The date when the guest checks in
+        private DateTime CheckOutDate; // The date when the guest checks out
+        private bool IsActive; // Indicates if the booking is currently active
         public double TotalPrice { get; set; } // Number of nights for the booking
         // Properties for Booking
         public int BookingID
