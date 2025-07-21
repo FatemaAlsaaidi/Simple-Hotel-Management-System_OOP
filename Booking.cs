@@ -148,21 +148,29 @@ namespace Simple_Hotel_Management_System_OOP
             // 7. Add booking to bookings history list
             Booking newBooking = new Booking(selectedRoom, Guest.guest.FirstOrDefault(g => g.National_ID == National_ID), numberOfDays, checkInDate, checkOutDate, true);
             bookingHistory.Add(newBooking); // Add the new booking to the booking history
-
-
-
-
-
-
-
-
-
         }
 
+        // Method to check out a guest
+        public void CheckOut(string National_ID)
+        {
+            // 1. show booked rooms for the guest
+            Console.WriteLine("Booked Rooms for Guest:");
+            foreach (var booking in bookingHistory)
+            {
+                if (booking.bookingGuest.National_ID == National_ID && booking.IsActive)
+                {
+                    Console.WriteLine($"Booking ID: {booking.BookingID}, Room Number: {booking.bookedRoom.RoomNumber}, Check-In: {booking.CheckInDate}, Check-Out: {booking.CheckOutDate}");
+                    Console.WriteLine($"Total Price: {booking.TotalPrice:C}");
+                    Console.WriteLine("--------------------------------------------------");
+                }
+            }
+            // 1. Ask user for room number or booking ID
 
-
-
-
+            // 2. Find booking and check if it's active
+            // 3. If so, mark booking as inactive
+            // 4. Mark room as available
+            // 5. Optionally calculate bill
+        }
 
     }
 }
