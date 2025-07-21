@@ -320,25 +320,19 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
         // Create a method called GetRoomDetails() that returns the room details as a string.
-        public string GetRoomDetails(String RoomNumber)
+        public static Room GetRoomDetails(int RoomNumber)
         {
-            for (int i = 0; i < rooms.Count; i++)
+            Room room = null;
+            foreach (Room r in rooms)
             {
-                if (rooms[i].RoomNumber.ToString() == RoomNumber)
+                if (r.RoomNumber == RoomNumber)
                 {
-                    return $"Room Number: {rooms[i].RoomNumber}, Daily Rate: {rooms[i].DailyRate}, Is Booked: {rooms[i].IsBooked}";
+                    room = r; // Assign the found room to the variable
+                    break; // Exit the loop once the room is found
                 }
+            }
+            return room; // Return the room details
 
-            }
-
-            if (rooms.Count == 0)
-            {
-                return "No rooms available.";
-            }
-            else
-            {
-                return "Room not found.";
-            }
         }
 
         // Create a method called GetAvailableRooms() that returns a list of available rooms. this can through admin 
@@ -399,6 +393,7 @@ namespace Simple_Hotel_Management_System_OOP
             }
             return false; // Room is not available
         }
+       
 
         // create function to view booked rooms with specific guests with National Id
         public static void ViewBookedRoomsByGuest(string nationalId)
