@@ -48,8 +48,25 @@ namespace Simple_Hotel_Management_System_OOP
             set { checkInDate = value; }
 
         }
+        // property for CheckOutDate
+        public DateTime CheckOutDate
+        {
+            get { return checkOutDate; }
+            set
+            {
+                if (value < checkInDate)
+                {
+                    Console.WriteLine("Check-out date cannot be earlier than check-in date.");
+                }
+                else
+                {
+                    checkOutDate = value; // Set the check-out date if it's valid
+                }
+            }
+        }
 
         
+
         // A constructor that takes a Room and a Guest
         public Booking(Room room, Guest guest, int nights, DateTime Check_Date_IN, DateTime check_Date_Out, bool Is_Active)
         {
