@@ -111,7 +111,21 @@ namespace Simple_Hotel_Management_System_OOP
             {
                 Console.Write("Invalid room number. Please enter a valid room number: ");
             }
-         
+
+            // 3.Save the guests detail in the guestBookingInfo list
+            for (int i = 0; i < Guest.guest.Count; i++)
+            {
+                if (Guest.guest[i].National_ID == National_ID)
+                {
+                    guestBookingInfo.Add(Guest.guest[i]); // ✅ Adds the guest object directly
+                    return;
+                }
+            }
+
+       
+
+
+
         }
 
 
