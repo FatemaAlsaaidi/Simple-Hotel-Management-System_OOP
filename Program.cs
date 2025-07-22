@@ -20,7 +20,7 @@ namespace Simple_Hotel_Management_System_OOP
             Files.LoadGuestDataFromFile(); 
 
             // Load booking data from file at the start of the program
-            Files.LoadBookingHistoryFromFile();
+            //Files.LoadBookingHistoryFromFile();
             bool UsersSystemMenu = true;
 
             while (UsersSystemMenu)
@@ -313,50 +313,7 @@ namespace Simple_Hotel_Management_System_OOP
                 switch (choice)
                 {
                     case '1':
-                        // check if there are rooms available for booking
-                        if (Room.rooms.Count(r => !r.IsBooked && !r.IsCancel) == 0)
-                        {
-                            Console.WriteLine("No rooms available for booking at the moment.");
-                            Console.ReadLine(); // Wait for user input before continuing
-                            break;
-                        }
-                        Console.WriteLine("Enter the room number you want to book:");
-                        if (int.TryParse(Console.ReadLine(), out int roomNumber))
-                        {
-                            Room roomToBook = Room.rooms.FirstOrDefault(r => r.RoomNumber == roomNumber && !r.IsBooked && !r.IsCancel);
-                            if (roomToBook != null)
-                            {
-                                Console.WriteLine("Enter the number of nights you wish to book:");
-                                if (int.TryParse(Console.ReadLine(), out int nights) && nights > 0)
-                                {
-                                    if (currentGuest != null)
-                                    {
-                                        Booking newBooking = new Booking(roomToBook, currentGuest, nights);
-                                        Console.WriteLine($"Booking successful! Room {roomToBook.RoomNumber} booked for {nights} nights at a total price of {newBooking.TotalPrice:C}.");
-                                        // Add the new booking to the booking history
-                                        Booking.bookingHistory.Add(newBooking); // Add the new booking to the static list of bookings
-                                        // Save the booking to the file
-                                        Files.SaveBookingDataToFile(Booking.bookingHistory); // Save the updated booking history to the file
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Error: No guest is currently logged in.");
-                                    }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Invalid number of nights.");
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Room not available for booking.");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid room number.");
-                        }
+                        Booking.CheckIn(national_ID);
                         Console.ReadLine();
                         break;
 
