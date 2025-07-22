@@ -98,57 +98,79 @@ namespace Simple_Hotel_Management_System_OOP
             }
         }
         // Create a method to check in a guest
-        public void CheckIn(string National_ID)
+        
+        public static void CheckIn(string National_ID)
         {
             // 1. Show available rooms
             bookingHistory.Clear();
             Console.WriteLine("Available Rooms:");
-            Room.ViewAvailableRooms();
-
-            // 2. Let user select room number
-            Console.Write("Enter the room number you want to book: ");
-            int roomNumber;
-            while (!int.TryParse(Console.ReadLine(), out roomNumber) || !Room.IsRoomAvailable(roomNumber))
+            if ((Room.ViewAvailableRooms()) == -1)
             {
-                Console.Write("Invalid room number. Please enter a valid room number: ");
-            }
-
-            // 3.Save the guests detail in the guestBookingInfo list
-            for (int i = 0; i < Guest.guest.Count; i++)
-            {
-                if (Guest.guest[i].National_ID == National_ID)
-                {
-                    guestBookingInfo.Add(Guest.guest[i]); // ✅ Adds the guest object directly
-                    return;
-                }
-            }
-            // 4. Enter number of days
-            Console.WriteLine("Enter the number of days you want to book the room for: ");
-            int numberOfDays;
-            while (!int.TryParse(Console.ReadLine(), out numberOfDays) || numberOfDays <= 0)
-            {
-                Console.Write("Invalid number of days. Please enter a valid number: ");
-            }
-            // 5. Set check-in and check-out dates
-            DateTime checkInDate = DateTime.Now;
-            DateTime checkOutDate = checkInDate.AddDays(numberOfDays);
-
-            // 6. Mark room as unavailable
-            Room selectedRoom = Room.GetRoomDetails(roomNumber);
-            if (selectedRoom != null)
-            {
-                selectedRoom.IsBooked = true; // Mark the room as booked
-                Console.WriteLine($"Room {roomNumber} has been booked successfully.");
+                Console.WriteLine("There is no room available");
             }
             else
             {
-                Console.WriteLine("Selected room is not available.");
-                return;
-            }
+                // 2. Let user select room number
+                Console.Write("Enter the room number you want to book: ");
+                int roomNumber = int.Parse(Console.ReadLine());
+                if (!Room.IsRoomAvailable(roomNumber))
+                {
+                    Console.Write("Invalid room number. Please enter a valid room number: ");
+                }
+                else
+                {
+                    // 3.Save the guests detail in the guestBookingInfo list
+                    for (int i = 0; i < Guest.guest.Count; i++)
+                    {
+                        if (Guest.guest[i].National_ID == National_ID)
+                        {
+                            guestBookingInfo.Add(Guest.guest[i]); // ✅ Adds the guest object directly
+                            Console.WriteLine($"Guest {Guest.guest[i].Name} with ID {Guest.guest[i].National_ID} is booking a room.");
+                        }
+                    }
+                    //4.  Enter dates of check-In and check-Out 
+                    //Console.WriteLine("Enter the number of days you want to book the room for: ");
+                    //int numberOfDays;
+                    //while (!int.TryParse(Console.ReadLine(), out numberOfDays) || numberOfDays <= 0)
+                    //{
+                    //    Console.Write("Invalid number of days. Please enter a valid number: ");
+                    //}
+                    // 5. Set check-in and check-out dates
+                    Console.WriteLine("Setting check-in and check-out dates...");
+                    Console.WriteLine($"Check-in Date: "); // Display today's date as check-in date
 
-            // 7. Add booking to bookings history list
-            Booking newBooking = new Booking(selectedRoom, Guest.guest.FirstOrDefault(g => g.National_ID == National_ID), numberOfDays, checkInDate, checkOutDate, true);
-            bookingHistory.Add(newBooking); // Add the new booking to the booking history
+                    DateTime checkInDate = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine($"Check-in Date: "); // Display today's date as check-in date
+                    DateTime checkOutDate = DateTime.Parse(Console.ReadLine());
+
+                    // calculate the number of booking room days 
+                    int NumberOfDays = checkOutDate.Day - checkInDate.Day;
+                    Console.WriteLine(NumberOfDays);
+
+
+
+
+
+
+                    // Assuming check-in date is today and check-out date is numberOfDays later
+
+
+
+                    // 6. Mark room as unavailable
+                    Room selectedRoom = Room.GetRoomDetails(roomNumber);
+                    if (selectedRoom != null)
+                    {
+                        selectedRoom.IsBooked = true; // Mark the room as booked
+                        Console.WriteLine($"Room {roomNumber} has been booked successfully.");
+                        // 7. Add booking to bookings history list
+                        Booking newBooking = new Booking(selectedRoom, Guest.guest.FirstOrDefault(g => g.National_ID == National_ID), NumberOfDays, checkInDate, checkOutDate, true);
+                        bookingHistory.Add(newBooking); // Add the new booking to the booking history
+                    }
+                   
+                }
+
+               
+            }
         }
 
         // Method to check out a guest
