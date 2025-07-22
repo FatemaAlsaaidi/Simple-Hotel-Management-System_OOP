@@ -76,7 +76,7 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
         // A constructor that takes a Room and a Guest
-        public Booking(Room room, Guest guest, int nights, DateTime Check_Date_IN, DateTime check_Date_Out, bool Is_Active)
+        public Booking(Room room, Guest guest, DateTime Check_Date_IN, DateTime check_Date_Out, bool Is_Active, double totalPrice)
         {
             if (room.IsBooked)
             {
@@ -88,10 +88,13 @@ namespace Simple_Hotel_Management_System_OOP
                 bookingGuest = guest;
                 bookingID = ++BookingCounter;
                 bookedRoom.IsBooked = true;
-                TotalPrice = room.DailyRate * nights;
+                
                 bookingTime = DateTime.Now;
                 CheckInDate = Check_Date_IN;
                 CheckOutDate = check_Date_Out;
+                int nights = (CheckOutDate - CheckInDate).Days; // Calculate the number of nights between check-in and check-out dates
+                TotalPrice = room.DailyRate * nights;
+
                 IsActive = true;
                 bookingHistory.Add(this);
 
