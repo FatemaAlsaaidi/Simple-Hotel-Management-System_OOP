@@ -351,35 +351,81 @@ namespace Simple_Hotel_Management_System_OOP
         }
 
         // Create a method called GetBookedRooms() that returns a list of booked rooms.
-        public static void ViewAvailableRooms()
+        public static int ViewAvailableRooms()
         {
-            //List<Room> bookedRooms = new List<Room>();
-            //foreach (Room room in rooms)
-            //{
-            //    if (room.IsBooked)
-            //    {
-            //        bookedRooms.Add(room);
-            //    }
-            //}
-            //return bookedRooms;
-            if (rooms.Count == 0)
+            Console.WriteLine("Select options: ");
+            Console.WriteLine("1. View all currently available rooms");
+            Console.WriteLine("2. View all available rooms based on date");
+            char choice = Console.ReadKey().KeyChar;
+            Console.WriteLine(); // Move to the next line after reading the key
+
+            if (choice == '1')
             {
-                Console.WriteLine("No rooms available.");
-                return;
+                Console.WriteLine("All Currently Available Rooms:");
+                bool found = false;
+                foreach (Room room in rooms)
+                {
+                    if (!room.isBooked && !room.isCancel)
+                    {
+                        Console.WriteLine($"Room Number: {room.RoomNumber}, Type: {room.roomType}, Daily Rate: {room.DailyRate:C}");
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    Console.WriteLine("No rooms are currently available.");
+                }
+            }
+            else if (choice == '2')
+            {
+                Console.WriteLine("Please enter the date to check availability (format: yyyy-MM-dd):");
+                DateTime date;
+                while (!DateTime.TryParse(Console.ReadLine(), out date))
+                {
+                    Console.WriteLine("Invalid date format. Please enter again (yyyy-MM-dd):");
+                }
+
+                Console.WriteLine($"Available Rooms on {date.ToShortDateString()}:");
+
+                bool found = false;
+                foreach (Room room in rooms)
+                {
+                    bool isBookedOnDate = false;
+
+                    foreach (var booking in Booking.bookingHistory)
+                    {
+                        if (booking.bookedRoom.RoomNumber == room.RoomNumber)
+                        {
+                            // Check if the date falls within an existing booking
+                            if (date >= booking.CheckInDate && date < booking.CheckOutDate)
+                            {
+                                isBookedOnDate = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!isBookedOnDate && !room.isCancel)
+                    {
+                        Console.WriteLine($"Room Number: {room.RoomNumber}, Type: {room.roomType}, Daily Rate: {room.DailyRate:C}");
+                        found = true;
+                    }
+                }
+
+                if (!found)
+                {
+                    Console.WriteLine("No rooms are available on the selected date.");
+                }
             }
             else
             {
-                for (int i = 0; i < rooms.Count; i++)
-                {
-                    if (rooms[i].isBooked == false && rooms[i].isCancel == false)
-                    {
-                        Console.WriteLine($"Room Number : {rooms[i].roomNumber}");
-                        Console.WriteLine($"Daily Rate : {rooms[i].DailyRate}");
-                        Console.WriteLine("======================================");
-                    }
-                }
+                Console.WriteLine("Invalid choice. Please try again.");
+                return -1; // Return -1 for invalid choice
             }
+
+            return 0; // Success
         }
+
 
         // Create a method to check if a room is available
         public static bool IsRoomAvailable(int roomNumber)
