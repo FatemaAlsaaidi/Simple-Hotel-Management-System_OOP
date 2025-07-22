@@ -98,7 +98,7 @@ namespace Simple_Hotel_Management_System_OOP
             {
                 foreach (Booking booking in bookings)
                 {
-                    file.WriteLine($"{booking.BookingID},{booking.bookedRoom},{booking.bookingGuest},{booking.BookingTime},{booking.TotalPrice}");
+                    file.WriteLine($"{booking.BookingID},{booking.bookedRoom},{booking.bookingGuest},{booking.BookingTime},{booking.TotalPrice}, {booking.CheckInDate}, {booking.CheckOutDate}, {booking.IsActive}");
                 }
             }
         }
@@ -109,10 +109,10 @@ namespace Simple_Hotel_Management_System_OOP
             Booking.bookingHistory.Clear();
 
             // check file exists before reading 
-            if (System.IO.File.Exists(BookingFilePath)) 
+            if (System.IO.File.Exists(BookingFilePath))
             {
                 // declare string array to hold lines from the file
-                string [] lines = System.IO.File.ReadAllLines(BookingFilePath);
+                string[] lines = System.IO.File.ReadAllLines(BookingFilePath);
                 foreach (string line in lines)
                 {
                     // split the line by comma to get individual parts
@@ -125,8 +125,12 @@ namespace Simple_Hotel_Management_System_OOP
                         Guest bookingGuest = Guest.guest.FirstOrDefault(g => g.National_ID == parts[2]);
                         DateTime bookingTime = DateTime.Parse(parts[3]);
                         double totalPrice = double.Parse(parts[4]);
+                        DateTime checkInDate = DateTime.Parse(parts[5]);
+                        DateTime checkOutDate = DateTime.Parse(parts[6]);
+                        bool isActive = bool.Parse(parts[7]);
                         // 1. Create a new Booking object using the constructor
-                        Booking loadedBooking = new Booking(bookedRoom, bookingGuest, (int)(totalPrice / bookedRoom.DailyRate));
+                        Booking loadedBooking = new Booking(bookedRoom, bookingGuest, totalPrice,checkInDate, checkOutDate, isActive);
+
                         // 2. Set the properties of the loadedBooking object
                         loadedBooking.TotalPrice = totalPrice;
                         loadedBooking.BookingID = bookingID;
